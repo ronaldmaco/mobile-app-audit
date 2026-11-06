@@ -10,6 +10,7 @@ Goal: every screen and flow does what the user expects under real conditions (sl
 <!--
 Maintainer notes
 - Author: Ronald Maco (https://github.com/ronaldmaco)
+- v2.4: sibling check method, Android patterns from cases 008-012.
 - v2.3 (2026-11-06): agent-neutral wording (tools by capability, work folder), install for any agent.
 - v2.2 (2026-11-06): cases 002-007, evals/, example report; patterns and checks from those cases.
 - v2.1 (2026-11-05): core file + references loaded on demand (token economy); impact map, ground-truth
@@ -117,7 +118,7 @@ A test that fails before and passes after, per failing impact map row, at the ch
 Re-run the exact reported scenario and the whole impact map on device, compare each with the oracle, then a short regression of neighbouring flows. Use the **release** configuration before shipping. Attach before/after evidence.
 
 ### 2.8 Sibling check
-Same pattern in other screens, the other platform and sibling apps (or note the user excluded them).
+Same pattern in other screens, the other platform and sibling apps (or note the user excluded them). Cheap method (`cases/008`): use the fix commits of one platform as the checklist; for each, grep the other platform for the same endpoint, field or screen, read only that path, and mark Verified present / Verified fixed / Not applicable (a library may already handle it) with file:line. Port the same behaviour so both platforms act alike.
 
 ### 2.9 Record the case
 Update the audit log (`references/report.md`). If the skill missed something, propose an anonymised case for the skill repo's `cases/`, and write it only with the user's OK. Anonymise before writing anything outside the app's own repo: change the domain, rename every class, field, key, endpoint and user-visible string, drop exact counts, ids and versions, and name SDKs/CMS by kind ("an analytics SDK"). Keep only the mechanism. Never copy app code; write a new minimal fixture.
@@ -159,6 +160,12 @@ Why "fixed" bugs come back: old build; symptom patched or data hidden; another p
 - **Unpaired events:** hide without show, resume without pause, end without begin; handlers that assume the pair crash.
 - **Late async result on a reused view:** an image or response arrives for a cell that now shows another item.
 - **Consent not reaching the SDK:** a privacy switch saved locally but never passed to analytics/ads/push SDKs.
+- **Flag reset only on success:** a loading/in-flight flag that a failure never clears blocks every later load.
+- **Refuse-new plus drop-stale guards:** "already loading" rejects the new query and "not current" drops the old answer, so the screen shows the wrong content.
+- **Errors without a body vanish:** timeouts and offline have no response body; a handler that needs one never reports them.
+- **Cache returned as success:** a failed request answered from cache, including writes that never reached the server.
+- **Non-deterministic getter:** random, time- or counter-based computed property read more than once (shown item is not the opened one); `random()`/`first()` on an empty list.
+- **Mutable shared constants as context:** properties set on enum constants, singletons or companion objects leak into the next caller.
 
 ## 4. Definition of done
 

@@ -117,7 +117,7 @@ Delivery: app build 3.4.2 (1); CMS fix by the content team, no build needed
 
 ## 🧪 Real cases
 
-Every check in the skill comes from a real audit. Each case is **anonymised**: the domain, names and numbers are changed, and only the mechanism is kept.
+Every check in the skill comes from a real audit, on iOS and Android. Each case is **anonymised**: the domain, names and numbers are changed, and only the mechanism is kept.
 
 | # | Case | What it taught the skill |
 |---|---|---|
@@ -128,6 +128,11 @@ Every check in the skill comes from a real audit. Each case is **anonymised**: t
 | [005](cases/005-analytics-switch-and-logout-leaks.md) | Analytics off, still tracked; logout kept the user | Consent must reach every SDK; where caches live |
 | [006](cases/006-same-crash-in-sibling-apps.md) | The same crash in two sibling apps | Unpaired system events; sibling check |
 | [007](cases/007-silent-failures-and-late-images.md) | Endless spinners, 4xx as success, wrong images | Status codes, cell reuse races |
+| [008](cases/008-fixes-never-reached-the-other-platform.md) | The iOS fixes never reached Android | A cheap sibling check, platform by platform |
+| [009](cases/009-loading-flag-never-reset.md) | A loading flag that never resets | Clear in-flight flags on every outcome |
+| [010](cases/010-errors-without-body-and-cache-as-success.md) | Offline errors vanish; failed writes "succeed" from cache | Transport errors and cache fallbacks |
+| [011](cases/011-random-getter.md) | The card opens a different item than it shows | Non-deterministic getters, empty `random()` |
+| [012](cases/012-shared-enum-mutated.md) | Analytics context leaks between screens | Mutable shared constants |
 
 The cases are also an **[eval set](evals/)**: each one has a prompt, a small fixture, and a list of what the answer must and must not do, so every release can be measured. Run it with and without the skill to see what the skill adds.
 

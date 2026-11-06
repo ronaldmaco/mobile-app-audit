@@ -27,7 +27,9 @@ Read the code path end to end for each area in scope and answer every question. 
 - In-app account deletion exists when sign up exists, waits for the server and confirms.
 
 ## Networking
-- Every request has a timeout; every failure reaches the UI (offline, timeout, 4xx, 5xx, HTML/non-JSON).
+- Every request has a timeout; every failure reaches the UI (offline, timeout, 4xx, 5xx, HTML/non-JSON), including transport errors that have no response body.
+- In-flight/loading flags are cleared on every outcome (success, failure, cancel); a new query supersedes the running one instead of being refused.
+- A cached copy may stand in for a failed **read** (marked stale, with the error); never for a write.
 - Caching: what is cached, keyed by what, when used. Writes and per-user reads never served stale as fresh.
 - A completion can fire more than once? Only the first answer counts.
 - Lenient parsing where the server can add or null fields.
@@ -82,6 +84,7 @@ Read the code path end to end for each area in scope and answer every question. 
 
 ## Analytics and logging
 - Events fire once per action, after success, no personal data beyond policy.
+- Event context is passed per call (parameters), never stored on shared enum constants or singletons.
 - Debug logging reduced in release builds.
 
 ## Security (OWASP MASVS based)
@@ -110,6 +113,6 @@ Read the code path end to end for each area in scope and answer every question. 
 
 ## Stack notes
 - **iOS (UIKit/SwiftUI):** outlets, main-thread UI, `[weak self]`, Keychain accessibility class, scene URL handling, `Task` cancellation. spaces and symbols in the product name become underscores in the Swift module name; test targets need `TEST_HOST` matching the real product name.
-- **Android:** lifecycle-aware coroutines, process death (`SavedStateHandle`), no network on main, R8 keep rules, cleartext config, exported components.
+- **Android:** lifecycle-aware coroutines, process death (`SavedStateHandle`), no network on main, R8 keep rules, `usesCleartextTraffic` / network security config, exported components. Legacy Kotlin + Java mixes: `var` on enum constants and `object` singletons (shared state), `!!` and platform types from Java (nullability lost), `random()`/`first()` on possibly empty lists, data binding expressions hiding logic in XML. Image libraries (Glide, Coil, Fresco, Picasso) usually cancel on view reuse; check before reporting a late-image bug.
 - **Flutter:** `mounted` after `await`, `setState` after dispose, platform channel errors, release-only issues.
 - **React Native / Expo:** unhandled rejections, effect cleanup, Hermes/release differences, Expo runtime version vs OTA channel, secrets in `app.config`.

@@ -1,5 +1,5 @@
 {
-  "version": "2.2.0",
+  "version": "2.4.0",
   "notes": "Each eval gives the agent a prompt and a fixture folder. Grade the answer against must / must_not. An eval passes when every 'must' item is met and no 'must_not' item happens.",
   "evals": [
     {
@@ -128,6 +128,82 @@
         "Invents a root cause or changes code",
         "Closes the report as 'works for me'"
       ]
+    },
+    {
+      "id": "e009",
+      "case": "cases/008-fixes-never-reached-the-other-platform.md",
+      "mode": "B",
+      "fixture": "fixtures/e009",
+      "prompt": "We fixed these bugs on iOS last week (see ios-fixes.md). Check whether the Android app still has them.",
+      "must": [
+        "Marks fix 1 as still present on Android: id 0 is dropped, so the request can send an empty venue list that the API reads as 'any'",
+        "Marks fix 2 as still present: Home makes one request with no fallback",
+        "Marks fix 3 as still present: the event is logged before the save and the switch is never reverted",
+        "Marks fix 4 as not applicable or likely handled, because the image library cancels requests on reuse, and says it was not run on a device",
+        "Gives a status per fix (present / fixed / not applicable / suspected) with file evidence"
+      ],
+      "must_not": [
+        "Reports all four as present without looking at the image library note",
+        "Rewrites the Android screens or changes the design"
+      ]
+    },
+    {
+      "id": "e010",
+      "case": "cases/009-loading-flag-never-reset.md",
+      "mode": "C",
+      "fixture": "fixtures/e010",
+      "prompt": "On the list screen, the Saved tab sometimes shows the All list, and after a network error the list never loads again. Find out why.",
+      "must": [
+        "Says isFetching is reset only on success, so after one error no load ever runs again",
+        "Says switching tabs during a load is refused by the isFetching guard, so the Saved query is never sent",
+        "Fix resets the flag on every outcome and supersedes or cancels the running request on tab change"
+      ],
+      "must_not": [
+        "Only adds a retry button without fixing the flag"
+      ]
+    },
+    {
+      "id": "e011",
+      "case": "cases/010-errors-without-body-and-cache-as-success.md",
+      "mode": "C",
+      "fixture": "fixtures/e011",
+      "prompt": "Audit this network layer. Users say liking an item offline looks saved but is lost, and some screens spin forever.",
+      "must": [
+        "Says a failure without a response body (timeout, offline) never calls onError, so the spinner never stops",
+        "Says a failed request with a cache entry is returned as success, including writes",
+        "Fix: every failure reaches the caller; writes never fall back to the cache; cached reads are marked stale"
+      ],
+      "must_not": [
+        "Recommends removing the cache entirely as the only fix"
+      ]
+    },
+    {
+      "id": "e012",
+      "case": "cases/011-random-getter.md",
+      "mode": "C",
+      "fixture": "fixtures/e012",
+      "prompt": "Some users say the promoted card opens a different item than the one it shows, and one user says Home crashes on open.",
+      "must": [
+        "Says promotedItem picks a new random item on every read, so the shown item and the opened item differ",
+        "Says random() throws on an empty list, which happens when the user owns every promotable item",
+        "Fix picks once per load and handles the empty case (hide the card) without changing the design"
+      ],
+      "must_not": [
+        "Marks the crash Verified on a device without a device"
+      ]
+    },
+    {
+      "id": "e013",
+      "case": "cases/012-shared-enum-mutated.md",
+      "mode": "D",
+      "fixture": "fixtures/e013",
+      "prompt": "Our analytics show item_opened events from search with titles of items the user never opened there. Audit the analytics code.",
+      "must": [
+        "Says enum constants are shared singletons, so setting title/screen on ITEM_OPENED is global state",
+        "Explains the search event reuses the title and screen set earlier by the detail screen",
+        "Fix passes context as per-event parameters and makes the enum properties immutable"
+      ],
+      "must_not": []
     }
   ]
 }

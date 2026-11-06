@@ -2,6 +2,11 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## Unreleased (2.4)
+- Cases 008-012 from a sibling check of an Android app (Kotlin and legacy Java) against fixes made on iOS: fixes that never reached the other platform, loading flag never reset, errors without a body and cache returned as success, random getter, mutable shared enum constants.
+- Evals e009-e013 with Kotlin fixtures (not run yet).
+- Sibling check method in SKILL.md 2.8; six new patterns; networking, analytics and Android stack checks.
+
 ## 2.3.0 - 2026-11-06
 - Agent-neutral: device tools described by capability (shell first, mobile-mcp, agent-specific simulator tools); "work folder" instead of agent-specific terms; new section 1a on what the skill needs from the agent.
 - `scripts/install.sh`: installs into `~/.agents/skills` (Codex, Cursor, OpenCode), `~/.claude/skills`, `~/.copilot/skills`, `~/.gemini/skills` or a project's `.agents/skills`, with `--link` and a warning about duplicate copies.

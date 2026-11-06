@@ -3,16 +3,16 @@
 </p>
 
 <p align="center">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.2.0-22c55e" alt="Version 2.2.0"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.3.0-22c55e" alt="Version 2.3.0"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/iOS%20%C2%B7%20Android%20%C2%B7%20Flutter%20%C2%B7%20React%20Native-supported-0ea5e9" alt="iOS, Android, Flutter, React Native">
-  <a href="https://code.claude.com/docs/en/plugins"><img src="https://img.shields.io/badge/Claude%20Code-plugin-d97757" alt="Claude Code plugin"></a>
+  <a href="docs/INSTALL.md"><img src="https://img.shields.io/badge/Agent%20Skills-any%20agent-d97757" alt="Agent Skills format: any agent"></a>
   <a href="evals/"><img src="https://img.shields.io/badge/evals-8%2F8%20with%20skill-8b5cf6" alt="Evals: 8/8 with the skill"></a>
   <a href="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml"><img src="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml/badge.svg" alt="Anonymisation check"></a>
 </p>
 
 <p align="center">
-  <b>An evidence-based QA skill for AI coding agents.</b><br>
+  <b>An evidence-based QA skill for AI coding agents</b> (Claude Code, Codex, Cursor, Gemini CLI, Copilot, OpenCode).<br>
   It does not stop at "it seems to work": every finding is proven, and every fix is checked on the build your users actually run.
 </p>
 
@@ -60,7 +60,11 @@ Update later with `/plugin marketplace update mobile-app-audit`.
 
 **Claude.ai / Claude desktop.** Zip the folder `skills/mobile-app-audit/` (the one that contains `SKILL.md`) and upload it in **Settings → Capabilities → Skills**.
 
-**Other agents.** The skill is plain Markdown (`SKILL.md` plus `references/`). Official support for other coding agents is planned for 2.3. Until then, see the [compatibility](#-compatibility) table.
+**Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode and other agents.** The skill follows the open [Agent Skills](https://agentskills.io) format. One command installs it in `~/.agents/skills`, a folder that Codex, Cursor and OpenCode all read:
+```bash
+git clone https://github.com/ronaldmaco/mobile-app-audit.git && mobile-app-audit/scripts/install.sh
+```
+Folders for every agent, project installs and what the skill needs from the agent: [docs/INSTALL.md](docs/INSTALL.md).
 </details>
 
 Then just ask:
@@ -131,11 +135,15 @@ The cases are also an **[eval set](evals/)**: each one has a prompt, a small fix
 
 ## 🔌 Compatibility
 
-| Agent | Status |
-|---|---|
-| Claude Code (plugin or manual copy) | ✅ Used in real audits |
-| Claude.ai / Claude desktop | ✅ Skill upload |
-| Other coding agents that read `SKILL.md` or `AGENTS.md` | 🧭 Planned for 2.3. Not tested yet |
+| Agent | Install | Status |
+|---|---|---|
+| Claude Code | plugin or `~/.claude/skills` | ✅ Real audits + [evals](evals/results/2.2.0/claude-code/summary.md) |
+| Claude.ai / Claude desktop | skill upload | ✅ |
+| OpenCode | `~/.agents/skills` | 🟡 Finds the skill; full eval run not completed yet |
+| Gemini CLI | `~/.gemini/skills` | 🟡 Ran one eval; the skill did not activate in that run |
+| Codex, Cursor, GitHub Copilot | `~/.agents/skills`, `~/.copilot/skills` | ⚪ Same skill format, not run yet |
+
+The skill only needs file reading and a shell; device tools are optional. See [docs/INSTALL.md](docs/INSTALL.md).
 
 | Stack | Status |
 |---|---|
@@ -147,7 +155,7 @@ The cases are also an **[eval set](evals/)**: each one has a prompt, a small fix
 
 - [x] **2.1** Impact map, ground-truth oracle, lighter core with references loaded on demand
 - [x] **2.2** Seven anonymised real cases, eval set, example report, anonymisation check in CI
-- [ ] **2.3 Any agent:** describe device tools by what they do instead of Claude tool names; add `AGENTS.md` and per-agent install notes; mark each agent as tested or untested
+- [x] **2.3 Any agent:** tools described by what they do, installer for any agent, `AGENTS.md`, per-agent install guide and compatibility results
 - [ ] **2.4 More stacks:** Kotlin and legacy Java (XML views, data binding), Objective-C, Kotlin Multiplatform, .NET MAUI, Ionic/Capacitor, CocoaPods/SPM, watchOS/Wear OS, Bluetooth
 - [ ] **2.5 Flows:** OTP and 2FA, social login and passkeys, magic links, payments and subscriptions, onboarding and permissions, offline sync, uploads, forced update
 - [ ] A Maestro flow for every verified bug, so the scenario runs in CI

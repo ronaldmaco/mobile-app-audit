@@ -10,6 +10,7 @@ Goal: every screen and flow does what the user expects under real conditions (sl
 <!--
 Maintainer notes
 - Author: Ronald Maco (https://github.com/ronaldmaco)
+- v2.3 (2026-11-06): agent-neutral wording (tools by capability, work folder), install for any agent.
 - v2.2 (2026-11-06): cases 002-007, evals/, example report; patterns and checks from those cases.
 - v2.1 (2026-11-05): core file + references loaded on demand (token economy); impact map, ground-truth
   oracle, backend catalog sweep, fix review gate, environment preflight, new patterns from a real case
@@ -52,6 +53,12 @@ References (read only the one you need, when you need it):
 10. **Secrets stay secret.** Never print tokens or passwords; prefer test accounts.
 11. **"Done" means delivered** (2.10).
 
+## 1a. Agent and tools
+
+Works in any agent that reads `SKILL.md` (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode...). It needs only file reading and a shell. Device tools (mobile-mcp or an agent's own simulator tool), a browser and sub-agents are optional; `references/device-testing.md` maps each need to the shell and to those tools. Tool names differ between agents: pick tools by what they do.
+
+**Work folder:** keep evidence, oracle scripts, sweep data and builds in the agent's scratch or temp folder, outside the app repo, unless the user asks otherwise.
+
 ## 1b. Token economy (always)
 
 - Read the audit log and project docs first; then targeted search (grep the screen, endpoint, error string). Read whole files only on the path that matters.
@@ -61,7 +68,7 @@ References (read only the one you need, when you need it):
 - Filter logs before reading (`grep`, `--predicate`, a time window).
 - Videos: key frames only (2.1).
 - Stop exploring when the cause is proven; spend the saved effort on the impact map.
-- Delegate wide "where is X used" sweeps to a search subagent and keep only its conclusion.
+- If the agent can run sub-agents or background tasks, delegate wide "where is X used" sweeps to one and keep only its conclusion.
 - Load a reference file only when its section is needed; never all of them up front.
 
 ## 2. Bug verification loop

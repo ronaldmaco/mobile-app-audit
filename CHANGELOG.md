@@ -2,7 +2,11 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
-## Unreleased
+## 2.3.0 - 2026-11-06
+- Agent-neutral: device tools described by capability (shell first, mobile-mcp, agent-specific simulator tools); "work folder" instead of agent-specific terms; new section 1a on what the skill needs from the agent.
+- `scripts/install.sh`: installs into `~/.agents/skills` (Codex, Cursor, OpenCode), `~/.claude/skills`, `~/.copilot/skills`, `~/.gemini/skills` or a project's `.agents/skills`, with `--link` and a warning about duplicate copies.
+- `docs/INSTALL.md` with folders per agent and compatibility results; `AGENTS.md` with rules for agents that change this repo; `agents/openai.yaml` display metadata for Codex.
+- Device testing: Android shell equivalents for elements, dark mode and rotation; iOS taps without a device tool go through Maestro.
 - First eval results: Claude Code (Opus 5.5) passes 8/8 with the skill and 5/8 without; answers, blind judge verdicts and limits in `evals/results/2.2.0/`.
 
 ## 2.2.0 - 2026-11-06

@@ -27,4 +27,4 @@ Severity: **Critical** (crash, data loss, security exposure, cannot sign in/use,
 Write to the user in their language, short: what was wrong, what changed, how it was proven, what is pending.
 
 ## Audit log (resume without re-auditing)
-Keep `docs/audit/<YYYY-MM-DD>-<scope>.md` in the app repo (or the scratchpad if writing to the repo is not allowed): mode, build audited, inventory, impact maps, coverage table, findings with status, evidence paths, oracle scripts, next steps. At the start of any audit, read the latest log first and continue from it. Ask before committing it.
+Keep `docs/audit/<YYYY-MM-DD>-<scope>.md` in the app repo (or the work folder if writing to the repo is not allowed): mode, build audited, inventory, impact maps, coverage table, findings with status, evidence paths, oracle scripts, next steps. At the start of any audit, read the latest log first and continue from it. Ask before committing it.

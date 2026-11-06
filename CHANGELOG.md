@@ -1,0 +1,34 @@
+# Changelog
+
+Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
+
+## 2.2.0 - 2026-11-06
+- Added cases 002-007 from real audits (anonymised): write used as a read, valid preferences with an empty Home, launch crash with a new SDK, consent and logout leaks, the same crash in sibling apps, silent failures and late images.
+- Added `evals/`: 8 evals with fixtures and must / must_not criteria, including one where the right answer is "not reproduced".
+- Added `examples/bug-verification-report.md`, a full mode A report.
+- New patterns: write used as a read, empty result shown as an error, unpaired events, late async result on a reused view, consent not reaching the SDK.
+- New checks: read methods for reads, non-2xx is an error even if the body decodes, image reuse and disk cache, unpaired system notifications, URL entry points after a lifecycle migration, consent wiring, cache location, combination sweep, launch with the submission toolchain.
+- Impact map: the expected result is per consumer (explicit filter vs curated feed).
+- All cases, fixtures and examples anonymised (domain, names, numbers, vendors). New anonymisation rule in the skill and CONTRIBUTING, `scripts/check-anonymised.sh` with git hooks and a CI workflow.
+- New README with banner, badges, comparison table, flow diagram, case index and compatibility table.
+- Repository history restarted at 2.2.0.
+
+## 2.1.0 - 2026-11-05
+- Split into a short core `SKILL.md` plus `references/` loaded on demand, so each run spends fewer tokens.
+- Added the impact map (inputs x consumers x states x data): a bug is fixed only when the whole map passes, not only the reported case.
+- Added the ground-truth oracle (compare the screen with the API for the same parameters) and a backend catalog sweep (ids, orphans, empty options, 404 links).
+- Added the fix review gate and the principle "never hide the user's input"; history check of earlier fixes.
+- Added patterns: empty filter means "any", sentinel ids colliding, silent drop, orphan backend data, dead test setup.
+- Added environment preflight (disk space, one build folder, test target health) and device pitfalls (taps during scroll, verify stored state, slow first launch).
+- Added `cases/` with the first real case; README note to keep a single installed copy.
+
+## 2.0.0 - 2026-11-04
+- Added work modes (bug verification, fix verification, targeted, full, store readiness).
+- Added bug verification loop: intake, confirm installed build, reproduce, root cause, fix, regression test, verify, delivery check.
+- Added "still happens after the fix" delivery checklist (builds, backend deploy, CDN cache, OTA channels, stale local data).
+- Added key-frame extraction from user videos, token economy rules and an audit log file to resume work.
+- Added security (OWASP MASVS), performance, accessibility, localization, push notifications, purchases and production telemetry.
+- Merged reference files into a single SKILL.md.
+
+## 1.0.0
+- First version based on mobile-mcp practice: static checklist, backend/CDN checks, device testing, store review.

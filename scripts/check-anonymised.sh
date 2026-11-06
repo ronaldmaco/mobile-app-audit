@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Fails if a file or commit message could identify a real app, client or person.
+# Usage: scripts/check-anonymised.sh [--staged] [--message FILE]
+#   --staged       check only files staged for commit (pre-commit hook)
+#   --message FILE check a commit message (commit-msg hook)
+# Private terms: one extended regex per line in .private/denylist.txt (git-ignored, never committed).
+set -uo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+DENY=.private/denylist.txt
+fail=0
+say() { printf '  %s\n' "$*"; fail=1; }
+
+# Public, generic checks: things no case or fixture should contain.
+GENERIC=(
+  '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}'          # emails
+  '\b(com|net|org|io|co|uk)\.[a-z0-9]+\.[a-z0-9]+\b'          # bundle ids / package names
+  '\b([0-9]{1,3}\.){3}[0-9]{1,3}\b'                           # IP addresses
+  '(api[_-]?key|secret|token|password)["'"'"' :=]+[A-Za-z0-9_\-]{12,}'  # secrets with a value
+  'https?://[^ )"'"'"'>]+'                                     # URLs (allowlist below)
+)
+ALLOW_URL='https?://(github\.com/ronaldmaco|([a-z]+\.)?example\.(com|org)|img\.shields\.io|keepachangelog\.com|semver\.org|claude\.(ai|com)|code\.claude\.com|docs\.anthropic\.com|owasp\.org|mas\.owasp\.org|maestro\.mobile\.dev|developer\.apple\.com|developer\.android\.com|ipinfo\.io|opensource\.org|agentskills\.io|www\.w3\.org/2000/svg)'
+ALLOW_EMAIL='(noreply@anthropic\.com|users\.noreply\.github\.com|@example\.(com|org))'
+
+check_text() { # $1 = label, stdin = text
+  local label=$1 text; text=$(cat)
+  for re in "${GENERIC[@]}"; do
+    while IFS= read -r hit; do
+      [ -z "$hit" ] && continue
+      echo "$hit" | grep -qE "$ALLOW_URL|$ALLOW_EMAIL" && continue
+      say "$label: generic match: $hit"
+    done < <(printf '%s' "$text" | grep -noE "$re" || true)
+  done
+  if [ -f "$DENY" ]; then
+    while IFS= read -r term; do
+      [[ -z "$term" || "$term" == \#* ]] && continue
+      printf '%s' "$text" | grep -qiE "$term" && say "$label: private term matched (see $DENY)"
+    done < "$DENY"
+  fi
+}
+
+if [ "${1:-}" = "--message" ]; then
+  echo "Checking commit message"
+  check_text "commit message" < "$2"
+else
+  if [ "${1:-}" = "--staged" ]; then files=$(git diff --cached --name-only --diff-filter=ACM)
+  else files=$(git ls-files --cached --others --exclude-standard); fi
+  echo "Checking $(echo "$files" | grep -c . ) files"
+  while IFS= read -r f; do
+    [ -z "$f" ] && continue
+    case "$f" in *.png|*.jpg|*.gif|scripts/check-anonymised.sh) continue;; esac
+    [ -f "$f" ] || continue
+    if [ "${1:-}" = "--staged" ]; then git show ":$f" | check_text "$f"; else check_text "$f" < "$f"; fi
+  done <<< "$files"
+  # Every case must say it is anonymised.
+  for c in cases/*.md; do
+    grep -q 'Real case, anonymised' "$c" || say "$c: missing the 'Real case, anonymised' note"
+  done
+  [ -f "$DENY" ] || echo "  note: $DENY not found, only generic checks ran"
+fi
+
+if [ $fail -ne 0 ]; then
+  echo "Anonymisation check FAILED. Rename, generalise or remove the matches above."
+  exit 1
+fi
+echo "Anonymisation check passed."

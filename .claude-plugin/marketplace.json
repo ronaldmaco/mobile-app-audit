@@ -1,0 +1,23 @@
+{
+  "name": "mobile-app-audit",
+  "owner": {
+    "name": "Ronald Maco",
+    "url": "https://github.com/ronaldmaco"
+  },
+  "metadata": {
+    "description": "Evidence-based mobile app auditor for Claude.",
+    "version": "2.2.0"
+  },
+  "plugins": [
+    {
+      "name": "mobile-app-audit",
+      "source": "./",
+      "description": "Evidence-based audit, QA and bug verification for mobile apps (iOS, Android, Flutter, React Native).",
+      "version": "2.2.0",
+      "author": { "name": "Ronald Maco" },
+      "license": "MIT",
+      "keywords": ["mobile", "audit", "qa", "ios", "android", "flutter", "react-native", "testing"],
+      "category": "development"
+    }
+  ]
+}

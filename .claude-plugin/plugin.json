@@ -1,0 +1,13 @@
+{
+  "name": "mobile-app-audit",
+  "version": "2.2.0",
+  "description": "Evidence-based audit, QA and bug verification for mobile apps: code, device testing, backend/CDN, security, performance, accessibility and store readiness.",
+  "author": {
+    "name": "Ronald Maco",
+    "url": "https://github.com/ronaldmaco"
+  },
+  "homepage": "https://github.com/ronaldmaco/mobile-app-audit",
+  "repository": "https://github.com/ronaldmaco/mobile-app-audit",
+  "license": "MIT",
+  "keywords": ["mobile", "audit", "qa", "ios", "android", "flutter", "react-native", "testing"]
+}

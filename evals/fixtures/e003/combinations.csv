@@ -1,0 +1,11 @@
+# Event count per venue x category pair, from the events API (sample; the full sweep finds about half the pairs at 0)
+venue,category,count
+north-hall,concerts,14
+north-hall,theatre,0
+north-hall,comedy,9
+riverside,concerts,0
+riverside,theatre,0
+riverside,comedy,0
+old-town,concerts,6
+old-town,theatre,0
+old-town,comedy,3

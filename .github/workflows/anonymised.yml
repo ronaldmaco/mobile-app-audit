@@ -1,0 +1,9 @@
+name: Anonymisation check
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/check-anonymised.sh
+      - run: python3 -m json.tool evals/evals.json > /dev/null

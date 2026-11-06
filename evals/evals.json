@@ -1,0 +1,133 @@
+{
+  "version": "2.2.0",
+  "notes": "Each eval gives the agent a prompt and a fixture folder. Grade the answer against must / must_not. An eval passes when every 'must' item is met and no 'must_not' item happens.",
+  "evals": [
+    {
+      "id": "e001",
+      "case": "cases/001-dropped-filter-returns-everything.md",
+      "mode": "A",
+      "fixture": "fixtures/e001",
+      "prompt": "A user picked two favourite venues and Concerts, but the list shows concerts at other venues. Only Concerts works. We fixed this area yesterday. Verify the bug and propose a fix.",
+      "must": [
+        "Says the request can end with an empty venue_ids list and that the API reads empty as 'any venue'",
+        "Names the previous fix (dropping id 0) as the cause or first suspect",
+        "Flags id 0 as a sentinel colliding with real venues",
+        "Proposes a fix that keeps the user's selection and shows an honest empty state instead of calling the API without the filter",
+        "Names a backend/CMS finding with an owner (venues with id 0 / no linked events)",
+        "Builds an impact map with at least: linked venues only, unlinked only, mixed, no favourite venue"
+      ],
+      "must_not": [
+        "Proposes sending id 0 again as the whole fix",
+        "Marks the bug Verified without a reproduction, oracle request or concrete code trigger"
+      ]
+    },
+    {
+      "id": "e002",
+      "case": "cases/002-write-used-as-read.md",
+      "mode": "C",
+      "fixture": "fixtures/e002",
+      "prompt": "Audit the account networking code.",
+      "must": [
+        "Flags that refresh() uses PUT with no body to read the account",
+        "Explains at least one consequence: needs update permission, touches the last-updated timestamp, or risk of overwriting data",
+        "Proposes a read endpoint (GET) and says to confirm it returns the same fields"
+      ],
+      "must_not": [
+        "Reports the PUT in save() as a bug"
+      ]
+    },
+    {
+      "id": "e003",
+      "case": "cases/003-valid-preferences-empty-home.md",
+      "mode": "A",
+      "fixture": "fixtures/e003",
+      "prompt": "Some users always see 'Something went wrong' on every Home list. Others never do. Find out why.",
+      "must": [
+        "Says an empty result is shown as an error",
+        "Uses combinations.csv (or proposes a combination sweep) to show that some venue x category pairs have no events",
+        "Proposes a Home fallback (widen the query step by step) or an honest empty state, and explains why Home may widen while an explicit filter must not"
+      ],
+      "must_not": [
+        "Blames the network or the server being down without evidence"
+      ]
+    },
+    {
+      "id": "e004",
+      "case": "cases/004-sdk-lifecycle-launch-crash.md",
+      "mode": "E",
+      "fixture": "fixtures/e004",
+      "prompt": "App Review rejected our build: the app does not open. It works on my phone with the build from last month. Get it ready for resubmission.",
+      "must": [
+        "Identifies the missing UIScene life cycle (no UIApplicationSceneManifest / SceneDelegate) as a launch blocker for the new SDK",
+        "Says to build and launch with the same Xcode/SDK used for submission on the newest OS before resubmitting",
+        "Notes that the social login URL handling must move to the scene delegate and be retested"
+      ],
+      "must_not": [
+        "Concludes the reviewer's device was at fault without checking the toolchain"
+      ]
+    },
+    {
+      "id": "e005",
+      "case": "cases/005-analytics-switch-and-logout-leaks.md",
+      "mode": "C",
+      "fixture": "fixtures/e005",
+      "prompt": "Audit privacy in the account screen and analytics before release.",
+      "must": [
+        "Flags that the tracking switch never opts the analytics SDK out",
+        "Flags that logout does not reset the analytics identity (identified by email)",
+        "Flags the response store in Documents (backed up) that stores every response, including writes, and survives logout",
+        "Flags that the switch state and event are not reverted / logged only on a successful save"
+      ],
+      "must_not": [
+        "Prints or invents real tokens or emails"
+      ]
+    },
+    {
+      "id": "e006",
+      "case": "cases/006-same-crash-in-sibling-apps.md",
+      "mode": "C",
+      "fixture": "fixtures/e006",
+      "prompt": "app-a crashes in KeyboardAvoiding.keyboardWillHide in production. Fix it. app-b is a sibling app from the same codebase.",
+      "must": [
+        "Explains that willHide can arrive without willShow, so the force unwrap crashes",
+        "Fix restores the size only if one was saved, with no visual change",
+        "Checks app-b and reports the same bug there"
+      ],
+      "must_not": [
+        "Fixes only app-a without mentioning app-b"
+      ]
+    },
+    {
+      "id": "e007",
+      "case": "cases/007-silent-failures-and-late-images.md",
+      "mode": "C",
+      "fixture": "fixtures/e007",
+      "prompt": "Users say lists sometimes load forever and sometimes show the wrong picture. Audit the networking and image code.",
+      "must": [
+        "Flags that failures only print and never call completion (endless spinner)",
+        "Flags that the HTTP status is never checked, so a decodable error body is treated as success",
+        "Flags that a late image can be applied to a reused cell",
+        "Mentions the blocking Data(contentsOf:) download and memory-only/no caching"
+      ],
+      "must_not": [
+        "Marks these as Verified on device without having run a device"
+      ]
+    },
+    {
+      "id": "e008",
+      "case": null,
+      "mode": "A",
+      "fixture": "fixtures/e008",
+      "prompt": "A user says saving the profile does not work. Verify it.",
+      "must": [
+        "Concludes the bug is not reproduced and keeps it Suspected (not Verified, not 'not a bug')",
+        "Asks only for what is missing: app version and build, device/OS, exact field edited, the error shown, time of the attempt",
+        "Lists the checks already done (code path, API probe) as evidence"
+      ],
+      "must_not": [
+        "Invents a root cause or changes code",
+        "Closes the report as 'works for me'"
+      ]
+    }
+  ]
+}

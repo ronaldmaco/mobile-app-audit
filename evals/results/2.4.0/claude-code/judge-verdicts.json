@@ -1,0 +1,22 @@
+{
+ "e009": {
+  "A": {"must": [true,true,true,true,true], "must_not_hit": [false,false], "pass": true, "errors": "", "note": "All four fixes get a status with file:line evidence; fix 4 marked Suspected OK via the library comment, with a device check proposed and nothing run. The claim that real venues also have id 0 is stated as an assumption."},
+  "B": {"must": [true,true,true,true,true], "must_not_hit": [false,false], "pass": true, "errors": "", "note": "Summary table plus per-fix sections with evidence; fix 4 is 'probably not affected, not verified', based on the library note; no runtime testing claimed."}
+ },
+ "e010": {
+  "A": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "Both causes traced to the right lines. The request-id fix clears loading on both outcomes and lets the newest request win; a flatMapLatest option is also given."},
+  "B": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "Both causes traced through a step-by-step event sequence. The fix swaps the boolean for a request token, so no state can stay stuck after either outcome and the newest request supersedes the old one; cancellation is also suggested."}
+ },
+ "e011": {
+  "A": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "Finds both the missing callback when there is no body and the cache returned as success for writes. The fix always calls onError, falls back to the cache only for GET, and returns an ApiResult.Stale."},
+  "B": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "Covers both bugs with impact maps. The fix always calls onError, blocks the cache fallback and caching for writes, and marks cached reads stale (F4)."}
+ },
+ "e012": {
+  "A": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "Finds the random pick on every read and the empty-list throw when every item is owned. The fix picks once with randomOrNull and hides the card; not reproduced on a device."},
+  "B": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "Both findings are 'Verified in code, not reproduced on a device', which is not a device verification. The fix picks once per bind, uses randomOrNull and hides the card, with the empty state left as a product decision."}
+ },
+ "e013": {
+  "A": {"must": [true,true,true], "must_not_hit": [], "pass": true, "errors": "", "note": "Identifies the enum singleton as global mutable state and the search event reusing the detail title and screen. The fix makes the enum hold only the key and passes params per call."},
+  "B": {"must": [true,true,true], "must_not_hit": [], "pass": true, "errors": "", "note": "Same diagnosis with a trigger sequence. The fix removes the vars and passes per-call params, and it rejects resetting the fields as a fix."}
+ }
+}

@@ -2,9 +2,10 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
-## Unreleased (2.4)
+## 2.4.0 - 2026-11-06
 - Cases 008-012 from a sibling check of an Android app (Kotlin and legacy Java) against fixes made on iOS: fixes that never reached the other platform, loading flag never reset, errors without a body and cache returned as success, random getter, mutable shared enum constants.
-- Evals e009-e013 with Kotlin fixtures (not run yet).
+- Evals e009-e013 with Kotlin fixtures. Claude Code (Opus 5.5) passes 5/5 with and without the skill: the fixtures are too small to show a difference, so they serve as a regression check. Details in `evals/results/2.4.0/`.
+- README: Android marked as used in real audits; roadmap renumbered (2.5 more stacks, 2.6 flows).
 - Sibling check method in SKILL.md 2.8; six new patterns; networking, analytics and Android stack checks.
 
 ## 2.3.0 - 2026-11-06

@@ -3,11 +3,11 @@
 </p>
 
 <p align="center">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.3.0-22c55e" alt="Version 2.3.0"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.4.0-22c55e" alt="Version 2.4.0"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/iOS%20%C2%B7%20Android%20%C2%B7%20Flutter%20%C2%B7%20React%20Native-supported-0ea5e9" alt="iOS, Android, Flutter, React Native">
   <a href="docs/INSTALL.md"><img src="https://img.shields.io/badge/Agent%20Skills-any%20agent-d97757" alt="Agent Skills format: any agent"></a>
-  <a href="evals/"><img src="https://img.shields.io/badge/evals-8%2F8%20with%20skill-8b5cf6" alt="Evals: 8/8 with the skill"></a>
+  <a href="evals/"><img src="https://img.shields.io/badge/evals-13%2F13%20with%20skill-8b5cf6" alt="Evals: 13/13 with the skill"></a>
   <a href="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml"><img src="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml/badge.svg" alt="Anonymisation check"></a>
 </p>
 
@@ -138,6 +138,8 @@ The cases are also an **[eval set](evals/)**: each one has a prompt, a small fix
 
 **First results (2.2.0, Claude Code, Opus 5.5):** with the skill 8/8 evals pass; without it 5/8. The model is already strong on its own (26 of 29 checks); the skill adds the impact map, the right meaning of empty results per screen, and consent handled end to end. These evals come from the cases that shaped the skill, so they favour it. [Details and limits](evals/results/2.2.0/claude-code/summary.md).
 
+**Android evals (2.4.0):** e009-e013 pass with and without the skill (5/5 each). They are too small to show a difference, so they serve as a regression check; harder Android fixtures are on the roadmap. [Details](evals/results/2.4.0/claude-code/summary.md).
+
 ## 🔌 Compatibility
 
 | Agent | Install | Status |
@@ -153,16 +155,18 @@ The skill only needs file reading and a shell; device tools are optional. See [d
 | Stack | Status |
 |---|---|
 | Native iOS (Swift, UIKit) | ✅ Used in real audits |
-| Native Android, Flutter, React Native / Expo | ✔️ Covered by the checklist |
-| Legacy Java, Objective-C, KMP, MAUI, Ionic, wearables, BLE | 🧭 Planned for 2.4 |
+| Native Android (Kotlin, legacy Java, XML views) | ✅ Used in real audits (cases 008-012) |
+| Flutter, React Native / Expo | ✔️ Covered by the checklist |
+| Objective-C, KMP, MAUI, Ionic, wearables, BLE | 🧭 Planned for 2.5 |
 
 ## 🧭 Roadmap
 
 - [x] **2.1** Impact map, ground-truth oracle, lighter core with references loaded on demand
 - [x] **2.2** Seven anonymised real cases, eval set, example report, anonymisation check in CI
 - [x] **2.3 Any agent:** tools described by what they do, installer for any agent, `AGENTS.md`, per-agent install guide and compatibility results
-- [ ] **2.4 More stacks:** Kotlin and legacy Java (XML views, data binding), Objective-C, Kotlin Multiplatform, .NET MAUI, Ionic/Capacitor, CocoaPods/SPM, watchOS/Wear OS, Bluetooth
-- [ ] **2.5 Flows:** OTP and 2FA, social login and passkeys, magic links, payments and subscriptions, onboarding and permissions, offline sync, uploads, forced update
+- [x] **2.4 Android:** five real Android cases (Kotlin, legacy Java), Kotlin evals, sibling check method across platforms
+- [ ] **2.5 More stacks:** Objective-C, Kotlin Multiplatform, .NET MAUI, Ionic/Capacitor, CocoaPods/SPM, watchOS/Wear OS, Bluetooth; harder Android evals
+- [ ] **2.6 Flows:** OTP and 2FA, social login and passkeys, magic links, payments and subscriptions, onboarding and permissions, offline sync, uploads, forced update
 - [ ] A Maestro flow for every verified bug, so the scenario runs in CI
 - [ ] Spec conformance, data correctness (calculations, time zones, sync), architecture review
 

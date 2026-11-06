@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Eval fixtures are sample code, not part of the skill: keep them out of the language stats
+evals/fixtures/** linguist-documentation

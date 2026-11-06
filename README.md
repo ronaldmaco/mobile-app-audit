@@ -86,17 +86,13 @@ Every bug goes through the same loop:
 
 ```mermaid
 flowchart LR
-    A[Intake<br/>report → test case] --> B[History<br/>earlier fixes?]
-    B --> C[Reproduce<br/>exact build + state]
-    C --> D[Oracle<br/>screen vs API]
-    D --> E[Root cause<br/>+ impact map]
-    E --> F[Fix<br/>review gate]
-    F --> G[Regression<br/>tests]
-    G --> H[Verify<br/>release build]
-    H --> I[Siblings<br/>other platform/apps]
-    I --> J{Delivered?}
-    J -- build, backend,<br/>cache, OTA --> K[✅ Done]
-    J -- missing --> L[Report exact state]
+    A["1 · Intake<br/>report → test case<br/>+ earlier fixes"] --> B["2 · Reproduce<br/>exact build + state<br/>screen vs API"]
+    B --> C["3 · Root cause<br/>+ impact map"]
+    C --> D["4 · Fix + tests<br/>review gate"]
+    D --> E["5 · Verify<br/>release build<br/>+ sibling apps"]
+    E --> F{"6 · Delivered?"}
+    F -- yes --> G["✅ Done"]
+    F -- not yet --> H["Report the<br/>exact state"]
 ```
 
 It covers code review, device testing under bad conditions (slow or lost network, app killed, other regions, old data), backend and CDN checks, security (OWASP MASVS), performance, accessibility, production crashes and store rules.
@@ -145,7 +141,7 @@ The cases are also an **[eval set](evals/)**: each one has a prompt, a small fix
 | Native Android, Flutter, React Native / Expo | ✔️ Covered by the checklist |
 | Legacy Java, Objective-C, KMP, MAUI, Ionic, wearables, BLE | 🧭 Planned for 2.4 |
 
-## 🗺️ Roadmap
+## 🧭 Roadmap
 
 - [x] **2.1** Impact map, ground-truth oracle, lighter core with references loaded on demand
 - [x] **2.2** Seven anonymised real cases, eval set, example report, anonymisation check in CI
@@ -158,6 +154,10 @@ The cases are also an **[eval set](evals/)**: each one has a prompt, a small fix
 ## 🤝 Contributing
 
 Real cases make this auditor sharper. When the skill misses something, open a **[Case report](.github/ISSUE_TEMPLATE/case-report.md)**. Before you share anything from a private app, read the anonymisation rules in [CONTRIBUTING.md](CONTRIBUTING.md#anonymise-everything).
+
+## 👤 Author
+
+Created and maintained by **[Ronald Maco](https://github.com/ronaldmaco)**. The cases, checks and judgement come from his audits of real mobile apps; he decides what goes in and reviews every change. [Claude Code](https://claude.com/claude-code) helps with drafting and automation, so commits it worked on carry a `Co-Authored-By` line.
 
 ## 📜 License
 

@@ -2,6 +2,9 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## Unreleased
+- First eval results: Claude Code (Opus 5.5) passes 8/8 with the skill and 5/8 without; answers, blind judge verdicts and limits in `evals/results/2.2.0/`.
+
 ## 2.2.0 - 2026-11-06
 - Added cases 002-007 from real audits (anonymised): write used as a read, valid preferences with an empty Home, launch crash with a new SDK, consent and logout leaks, the same crash in sibling apps, silent failures and late images.
 - Added `evals/`: 8 evals with fixtures and must / must_not criteria, including one where the right answer is "not reproduced".

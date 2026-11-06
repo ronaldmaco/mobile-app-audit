@@ -7,7 +7,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/iOS%20%C2%B7%20Android%20%C2%B7%20Flutter%20%C2%B7%20React%20Native-supported-0ea5e9" alt="iOS, Android, Flutter, React Native">
   <a href="https://code.claude.com/docs/en/plugins"><img src="https://img.shields.io/badge/Claude%20Code-plugin-d97757" alt="Claude Code plugin"></a>
-  <a href="evals/"><img src="https://img.shields.io/badge/evals-8-8b5cf6" alt="8 evals"></a>
+  <a href="evals/"><img src="https://img.shields.io/badge/evals-8%2F8%20with%20skill-8b5cf6" alt="Evals: 8/8 with the skill"></a>
   <a href="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml"><img src="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml/badge.svg" alt="Anonymisation check"></a>
 </p>
 
@@ -126,6 +126,8 @@ Every check in the skill comes from a real audit. Each case is **anonymised**: t
 | [007](cases/007-silent-failures-and-late-images.md) | Endless spinners, 4xx as success, wrong images | Status codes, cell reuse races |
 
 The cases are also an **[eval set](evals/)**: each one has a prompt, a small fixture, and a list of what the answer must and must not do, so every release can be measured. Run it with and without the skill to see what the skill adds.
+
+**First results (2.2.0, Claude Code, Opus 5.5):** with the skill 8/8 evals pass; without it 5/8. The model is already strong on its own (26 of 29 checks); the skill adds the impact map, the right meaning of empty results per screen, and consent handled end to end. These evals come from the cases that shaped the skill, so they favour it. [Details and limits](evals/results/2.2.0/claude-code/summary.md).
 
 ## 🔌 Compatibility
 

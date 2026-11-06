@@ -1,0 +1,34 @@
+{
+ "e001": {
+  "A": {"must": [true,true,true,true,true,true], "must_not_hit": [false,false], "pass": true, "errors": "", "note": "Covers every item, with an explicit impact map (valid, id-0, mixed, no favourite) and a backend/CMS owner."},
+  "B": {"must": [true,true,true,true,true,false], "must_not_hit": [false,false], "pass": false, "errors": "", "note": "The four scenarios appear only as a device test list at the end, with no impact map of expected vs current; the backend owner is named only loosely ('backend team')."}
+ },
+ "e002": {
+  "A": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "Flags PUT-as-read with consequences and says to confirm that GET returns the same Account shape; the refresh/save race is raised, but save's PUT is not called a bug."},
+  "B": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "All met; finding 2 criticises save's missing concurrency control, not its use of PUT, so the must_not is not hit."}
+ },
+ "e003": {
+  "A": {"must": [true,true,false], "must_not_hit": [false], "pass": false, "errors": "", "note": "Proposes an honest empty state but never discusses Home widening or why an explicit filter must not widen."},
+  "B": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "Covers the empty state plus an optional, labelled Home widening, and states that explicit filter screens must not widen."}
+ },
+ "e004": {
+  "A": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "The claim about Apple's UIScene requirement comes from outside knowledge, not the fixture; it is marked Suspected, which is appropriate.", "note": "All met, including building with the exact submission Xcode/SDK on the newest iOS simulator before resubmitting."},
+  "B": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "States as fact that today's newest Xcode ships an SDK that enforces UIScene; this is not in the fixture (confidence is hedged elsewhere).", "note": "All met; the verification plan builds the current code with the newest Xcode on the latest iOS and installs the TestFlight build before resubmitting."}
+ },
+ "e005": {
+  "A": {"must": [true,true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "Flags all four, including no revert on a failed save (P5) and tracking_toggled sent before the server confirms (P6)."},
+  "B": {"must": [true,true,true,false], "must_not_hit": [false], "pass": false, "errors": "", "note": "Flags the missing switch revert but never says the event is logged before or regardless of a successful save (only that it fires on opt-out); its own fix still sends the event before the server confirms."}
+ },
+ "e006": {
+  "A": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "Guarded restore with no visual change, and app-b is confirmed identical and given the same fix."},
+  "B": {"must": [true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "Option A is the minimal guarded restore with unchanged behaviour, and app-b is reported as having the same bug."}
+ },
+ "e007": {
+  "A": {"must": [true,true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "All four flagged, and the answer says clearly that nothing was reproduced on a device."},
+  "B": {"must": [true,true,true,true], "must_not_hit": [false], "pass": true, "errors": "", "note": "All four flagged; findings are 'Verified in code' and 'Suspected' as the cause of the user reports, never claimed on a device."}
+ },
+ "e008": {
+  "A": {"must": [true,true,true], "must_not_hit": [false,false], "pass": true, "errors": "", "note": "Status is Suspected; asks for version/build, device/OS, field, error and time (plus some extras such as network and region); hypotheses are kept as Suspected and no code is changed."},
+  "B": {"must": [true,false,true], "must_not_hit": [false,false], "pass": false, "errors": "", "note": "Never asks the user for the time of the attempt (it asks for version, device/OS, fields, error and also a screen recording); the status is 'Unconfirmed / needs info', which is equivalent to Suspected."}
+ }
+}

@@ -3,17 +3,18 @@
 </p>
 
 <p align="center">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.4.0-22c55e" alt="Version 2.4.0"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.4.1-22c55e" alt="Version 2.4.1"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/iOS%20%C2%B7%20Android%20%C2%B7%20Flutter%20%C2%B7%20React%20Native-supported-0ea5e9" alt="iOS, Android, Flutter, React Native">
-  <a href="docs/INSTALL.md"><img src="https://img.shields.io/badge/Agent%20Skills-any%20agent-d97757" alt="Agent Skills format: any agent"></a>
-  <a href="evals/"><img src="https://img.shields.io/badge/evals-13%2F13%20with%20skill-8b5cf6" alt="Evals: 13/13 with the skill"></a>
+  <a href="#-compatibility"><img src="https://img.shields.io/badge/Agent%20Skills%20format-validated%20on%20Claude%20Code-d97757" alt="Agent Skills format, validated on Claude Code"></a>
+  <a href="evals/results/2.2.0/claude-code/summary.md"><img src="https://img.shields.io/badge/evals%20e001--e008%20%282.2.0%29-with%20skill%208%2F8%20%C2%B7%20without%205%2F8%20%C2%B7%201%20run%20each-8b5cf6" alt="Evals e001-e008 (2.2.0): with skill 8/8, without 5/8, 1 run per condition"></a>
+  <a href="evals/results/2.4.0/claude-code/summary.md"><img src="https://img.shields.io/badge/evals%20e009--e013%20%282.4.0%29-with%20skill%205%2F5%20%C2%B7%20without%205%2F5%20%C2%B7%201%20run%20each-8b5cf6" alt="Evals e009-e013 (2.4.0): with skill 5/5, without 5/5, 1 run per condition"></a>
   <a href="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml"><img src="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml/badge.svg" alt="Anonymisation check"></a>
 </p>
 
 <p align="center">
-  <b>An evidence-based QA skill for AI coding agents</b> (Claude Code, Codex, Cursor, Gemini CLI, Copilot, OpenCode).<br>
-  It does not stop at "it seems to work": every finding is proven, and every fix is checked on the build your users actually run.
+  <b>An evidence-based QA skill for AI coding agents.</b> It follows the open Agent Skills format and is validated on Claude Code; see the <a href="#-compatibility">Compatibility table</a> for other agents.<br>
+  It does not stop at "it seems to work": a finding is <b>Verified</b> when it is proven (reproduced, shown by a request, or traced to a concrete code trigger) and <b>Suspected</b> otherwise, and every fix is checked on the build your users actually run.
 </p>
 
 <p align="center">

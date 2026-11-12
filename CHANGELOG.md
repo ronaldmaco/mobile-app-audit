@@ -2,6 +2,12 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## 2.4.1 - 2026-11-11
+Docs and version metadata only; the skill's behaviour is unchanged.
+- README intro: findings are described as Verified (reproduced, shown by a request, or traced to a concrete code trigger) or Suspected, instead of "every finding is proven".
+- README evals badge: the single "13/13 with skill" badge added two eval sets that are not comparable. It is replaced by one badge per set with and without the skill and the number of runs: e001-e008 (2.2.0) 8/8 vs 5/8, e009-e013 (2.4.0) 5/5 vs 5/5, 1 run per condition.
+- README opening line and agent badge: the skill follows the Agent Skills format and is validated on Claude Code; other agents point to the Compatibility table instead of being listed as supported.
+
 ## 2.4.0 - 2026-11-06
 - Cases 008-012 from a sibling check of an Android app (Kotlin and legacy Java) against fixes made on iOS: fixes that never reached the other platform, loading flag never reset, errors without a body and cache returned as success, random getter, mutable shared enum constants.
 - Evals e009-e013 with Kotlin fixtures. Claude Code (Opus 5.5) passes 5/5 with and without the skill: the fixtures are too small to show a difference, so they serve as a regression check. Details in `evals/results/2.4.0/`.

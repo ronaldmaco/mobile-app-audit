@@ -1,6 +1,6 @@
 # e014: the fix exists on the other platform
 
-Protocol for eval e014. **Status: v2, hardened after pilot 1; pilot of v2 not run.** Pilot 1 ran on v1 and hit the ceiling (see "Pilot 1 (v1)" below).
+Protocol for eval e014. **Status: v2; pilots 1 (v1) and 2 (v2) both hit the ceiling.** The eval does not separate the conditions on this model and is kept as a regression check only (see "Pilot 2 (v2)" below).
 
 ## What it measures
 Whether the agent finds, **without being told**, that the same feature exists on iOS with the right behaviour, and uses it to fix Android. Built on the mechanism of [case 008](../../../cases/008-fixes-never-reached-the-other-platform.md). The Android evals e009-e013 pass with and without the skill, so this one is meant to be harder: the prompt never mentions iOS, platforms, HTTP codes or caching.
@@ -61,6 +61,13 @@ Raw data stay in the private folder; nothing here is a claim about the skill.
 - Rule fired: ceiling effect. Causes: the 9-file workspace let every agent print all files, the iOS one included, with its first command; and the bug was fully fixable from the Kotlin code alone.
 - v2 answers both: unrelated files and a nested `ios/` tree, and a mandatory rule that only the iOS code states.
 - Open: the skill did not activate on this prompt in any run. That is a finding about the skill's trigger, not about this eval, and v2 does not change it.
+
+## Pilot 2 (v2), 2026-11-12
+Same setup as pilot 1, new randomized order.
+- With skill: `iOS_discovery` 5/5, mandatory 14/14 in 5/5 runs (status rule only stated in iOS: 5/5 in every run), `skill_activated` 0/5. Without skill: `iOS_discovery` 5/5, mandatory 14/14 in 5/5 (status rule 5/5 in every run). Difference: 0 and 0.
+- Rule fired: ceiling effect again. Every run listed all files first and then read the payment code on both platforms, so the baseline already does the cross-platform comparison this eval was built to test.
+- Decision: stop piloting e014. Keep it as a regression check. A discriminating version would need the other platform outside the workspace or a much larger repository; that is a new eval, not a third pilot.
+- Every run in both pilots added tests to the visible test file without removing lines; `score-run.sh` flags any change there as critical, so the human check of "weakened" remains.
 
 ## Freeze
 Before the first run, the fixture, hidden tests, rubric, prompt and model configuration are frozen. `fixture.sha256` is the frozen fixture manifest; `score-run.sh` refuses to prepare or score if the fixture differs from it. Per-file checksums of every input used are stored per run in `checksums.txt`. Keep the hidden tests and rubric unchanged across all runs of the pilot, and back up the private folder: it is not in git.

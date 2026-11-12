@@ -74,7 +74,7 @@ score)
       android/src/main/*) ;;
       *)
         oos="$oos;$f"
-        case "$f" in android/src/test/*|ios/PaymentService.swift) critical="$critical;modified:$f";; esac
+        case "$f" in android/src/test/*|ios/*) critical="$critical;modified:$f";; esac
         ;;
     esac
   done
@@ -100,7 +100,10 @@ score)
     count() { # $1 = class, $2 = attr
       sed -n "s/.*<testsuite name=\"checkout.$1\" tests=\"\([0-9]*\)\" skipped=\"[0-9]*\" failures=\"\([0-9]*\)\" errors=\"\([0-9]*\)\".*/\1 \2 \3/p" "$res/TEST-checkout.$1.xml" 2>/dev/null
     }
-    set -- $(count PaymentServiceHiddenTest); mandatory="$(( ${1:-0} - ${2:-0} - ${3:-0} ))/${1:-0}"
+    set -- $(count PaymentServiceHiddenTest); base_pass=$(( ${1:-0} - ${2:-0} - ${3:-0} )); base_n=${1:-0}
+    set -- $(count PaymentServiceStatusTest); ios_pass=$(( ${1:-0} - ${2:-0} - ${3:-0} )); ios_n=${1:-0}
+    mandatory="$(( base_pass + ios_pass ))/$(( base_n + ios_n ))"
+    echo "mandatory breakdown: base $base_pass/$base_n, status rule only stated in iOS $ios_pass/$ios_n"
     set -- $(count PaymentServiceBonusTest);  bonus="$(( ${1:-0} - ${2:-0} - ${3:-0} ))/${1:-0}"
     set -- $(count PaymentServiceTest);       visible="$(( ${1:-0} - ${2:-0} - ${3:-0} ))/${1:-0}"
     echo "visible tests (original): $visible"

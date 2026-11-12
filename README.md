@@ -169,9 +169,10 @@ The skill only needs file reading and a shell; device tools are optional. See [d
 - [x] **2.2** Seven anonymised real cases, eval set, example report, anonymisation check in CI
 - [x] **2.3 Any agent:** tools described by what they do, installer for any agent, `AGENTS.md`, per-agent install guide and compatibility results
 - [x] **2.4 Android:** five real Android cases (Kotlin, legacy Java), Kotlin evals, sibling check method across platforms
-- [x] **2.5 Trigger:** the skill loads for reported mobile bugs, trigger eval in `evals/triggers.json`, e014 eval hardened and piloted
-- [ ] **2.6 More stacks:** Objective-C, Kotlin Multiplatform, .NET MAUI, Ionic/Capacitor, CocoaPods/SPM, watchOS/Wear OS, Bluetooth; harder Android evals
-- [ ] **2.7 Flows:** OTP and 2FA, social login and passkeys, magic links, payments and subscriptions, onboarding and permissions, offline sync, uploads, forced update
+- [x] **2.5 Trigger:** the skill loads for reported mobile bugs, trigger eval in `evals/triggers.json`, e014 eval hardened and piloted (ceiling reached; kept as a regression check)
+- [ ] **2.6 Flows:** OTP and 2FA, social login and passkeys, magic links, payments and subscriptions, onboarding and permissions, offline sync, uploads, forced update
+- [ ] **2.7 More stacks:** Objective-C, Kotlin Multiplatform, .NET MAUI, Ionic/Capacitor, CocoaPods/SPM, watchOS/Wear OS, Bluetooth; harder Android evals
+- [ ] **2.8 Wider cases:** apps the maintainer did not build, reviewed with the owner's permission (open-source apps, or under a client agreement); each finding is rewritten as an anonymised case that states its origin
 - [ ] A Maestro flow for every verified bug, so the scenario runs in CI
 - [ ] Spec conformance, data correctness (calculations, time zones, sync), architecture review
 

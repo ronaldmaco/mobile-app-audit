@@ -28,6 +28,8 @@ For one repository only, shared with your team through git: `scripts/install.sh 
 
 **Cursor also reads `~/.claude/skills` and `~/.codex/skills`.** If you use Claude Code and Cursor on the same machine, one copy in `~/.claude/skills` (or the plugin) can be enough; do not add a second one in `~/.agents/skills`.
 
+**Same name, different skill.** The open-source web-to-mobile-magic-plugin also ships a skill named `mobile-app-audit` (a completeness audit of unfinished Expo or Swift apps); it is a separate project. As Claude Code plugins both can be installed, because plugin skills are namespaced. In a plain skills folder only one of them fits: `scripts/install.sh` stops instead of replacing the other one (add `--force` to replace it); with `npx skills add`, check that it is not replacing the other one. If you need both, install one of them as a plugin.
+
 Folder names and paths come from each agent's official docs as of November 2026. Agents change quickly; if a skill does not show up, check the agent's docs and restart it.
 
 ## What the skill needs from the agent

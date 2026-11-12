@@ -3,12 +3,13 @@
 </p>
 
 <p align="center">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.4.1-22c55e" alt="Version 2.4.1"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.5.0-22c55e" alt="Version 2.5.0"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/iOS%20%C2%B7%20Android%20%C2%B7%20Flutter%20%C2%B7%20React%20Native-supported-0ea5e9" alt="iOS, Android, Flutter, React Native">
   <a href="#-compatibility"><img src="https://img.shields.io/badge/Agent%20Skills%20format-validated%20on%20Claude%20Code-d97757" alt="Agent Skills format, validated on Claude Code"></a>
   <a href="evals/results/2.2.0/claude-code/summary.md"><img src="https://img.shields.io/badge/evals%20e001--e008%20%282.2.0%29-with%20skill%208%2F8%20%C2%B7%20without%205%2F8%20%C2%B7%201%20run%20each-8b5cf6" alt="Evals e001-e008 (2.2.0): with skill 8/8, without 5/8, 1 run per condition"></a>
   <a href="evals/results/2.4.0/claude-code/summary.md"><img src="https://img.shields.io/badge/evals%20e009--e013%20%282.4.0%29-with%20skill%205%2F5%20%C2%B7%20without%205%2F5%20%C2%B7%201%20run%20each-8b5cf6" alt="Evals e009-e013 (2.4.0): with skill 5/5, without 5/5, 1 run per condition"></a>
+  <a href="evals/results/2.5.0/claude-code/triggers.md"><img src="https://img.shields.io/badge/trigger%20eval%20%282.5.0%29-loads%208%2F8%20%C2%B7%20false%200%2F6%20%C2%B7%201%20run%20each-8b5cf6" alt="Trigger eval (2.5.0): loads on 8/8 requests it should, 0/6 it should not"></a>
   <a href="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml"><img src="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml/badge.svg" alt="Anonymisation check"></a>
 </p>
 
@@ -141,6 +142,8 @@ The cases are also an **[eval set](evals/)**: each one has a prompt, a small fix
 
 **Android evals (2.4.0):** e009-e013 pass with and without the skill (5/5 each). They are too small to show a difference, so they serve as a regression check; harder Android fixtures are on the roadmap. [Details](evals/results/2.4.0/claude-code/summary.md).
 
+**Trigger eval (2.5.0):** the skill now loads on 8/8 requests it is meant for (bugs reported by users, testers or reviewers, audits, store readiness) and on 0/6 unrelated ones; 2.4.1 loaded on 6/8. e014, a harder eval where the fix exists on the other platform, was piloted twice and the model found it without the skill too, so it is kept as a regression check. [Details](evals/results/2.5.0/claude-code/triggers.md).
+
 ## 🔌 Compatibility
 
 | Agent | Install | Status |
@@ -158,7 +161,7 @@ The skill only needs file reading and a shell; device tools are optional. See [d
 | Native iOS (Swift, UIKit) | ✅ Used in real audits |
 | Native Android (Kotlin, legacy Java, XML views) | ✅ Used in real audits (cases 008-012) |
 | Flutter, React Native / Expo | ✔️ Covered by the checklist |
-| Objective-C, KMP, MAUI, Ionic, wearables, BLE | 🧭 Planned for 2.5 |
+| Objective-C, KMP, MAUI, Ionic, wearables, BLE | 🧭 Planned for 2.6 |
 
 ## 🧭 Roadmap
 
@@ -166,8 +169,9 @@ The skill only needs file reading and a shell; device tools are optional. See [d
 - [x] **2.2** Seven anonymised real cases, eval set, example report, anonymisation check in CI
 - [x] **2.3 Any agent:** tools described by what they do, installer for any agent, `AGENTS.md`, per-agent install guide and compatibility results
 - [x] **2.4 Android:** five real Android cases (Kotlin, legacy Java), Kotlin evals, sibling check method across platforms
-- [ ] **2.5 More stacks:** Objective-C, Kotlin Multiplatform, .NET MAUI, Ionic/Capacitor, CocoaPods/SPM, watchOS/Wear OS, Bluetooth; harder Android evals
-- [ ] **2.6 Flows:** OTP and 2FA, social login and passkeys, magic links, payments and subscriptions, onboarding and permissions, offline sync, uploads, forced update
+- [x] **2.5 Trigger:** the skill loads for reported mobile bugs, trigger eval in `evals/triggers.json`, e014 eval hardened and piloted
+- [ ] **2.6 More stacks:** Objective-C, Kotlin Multiplatform, .NET MAUI, Ionic/Capacitor, CocoaPods/SPM, watchOS/Wear OS, Bluetooth; harder Android evals
+- [ ] **2.7 Flows:** OTP and 2FA, social login and passkeys, magic links, payments and subscriptions, onboarding and permissions, offline sync, uploads, forced update
 - [ ] A Maestro flow for every verified bug, so the scenario runs in CI
 - [ ] Spec conformance, data correctness (calculations, time zones, sync), architecture review
 

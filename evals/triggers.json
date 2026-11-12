@@ -1,0 +1,21 @@
+{
+  "description": "Trigger eval: does the agent load the skill for requests it is meant for, and leave it alone otherwise? Each prompt is pasted unchanged as the first user message in a fresh session whose working directory is a copy of fixtures/e014 (a small Android + iOS project), with only this skill installed. A run counts as activated when the transcript shows the skill tool called for this skill or its SKILL.md read. Fixed before measuring 2.4.1; never edit a prompt after seeing a result.",
+  "should_trigger": [
+    {"id": "t01", "prompt": "Some users see a successful payment even though we never received their payment details. It only happens with certain responses from our server, not every time. Please investigate, find the root cause, fix it, run the tests, and explain what you found."},
+    {"id": "t02", "prompt": "Users on Android say the checkout screen sometimes shows the wrong total after they change the cart. Can you find out why and fix it?"},
+    {"id": "t03", "prompt": "We submit the app to the stores next week. Check that it is ready."},
+    {"id": "t04", "prompt": "A tester says the bug where the receipt shows 0.00 is fixed in the last build. Can you confirm that before we close the ticket?"},
+    {"id": "t05", "prompt": "Our iOS app was rejected by review because the payment flow crashed on their device. Help me figure out what happened."},
+    {"id": "t06", "prompt": "Customers complain the app still logs them out at random even after last week's fix. Look into it."},
+    {"id": "t07", "prompt": "Review this app's payment code for bugs and anything that could hurt users before the next release."},
+    {"id": "t08", "prompt": "The profile screen works on my phone but some users say it never loads for them. What could be going on?"}
+  ],
+  "should_not_trigger": [
+    {"id": "n01", "prompt": "Write a small Python script that renames all .jpg files in a folder by their creation date."},
+    {"id": "n02", "prompt": "Explain the difference between a Kotlin data class and a regular class, with a short example."},
+    {"id": "n03", "prompt": "Add a markdown section to docs/release-checklist.md about tagging the release in git."},
+    {"id": "n04", "prompt": "What does HTTP status 204 mean, and when should a server return it?"},
+    {"id": "n05", "prompt": "Rename the Cart class in the Android code to ShoppingCart everywhere, without changing behaviour."},
+    {"id": "n06", "prompt": "Write a SQL query that returns the ten customers with the highest total order amount."}
+  ]
+}

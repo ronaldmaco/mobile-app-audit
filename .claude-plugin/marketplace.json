@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Evidence-based mobile app auditor for AI coding agents.",
-    "version": "2.4.1"
+    "version": "2.5.0"
   },
   "plugins": [
     {
       "name": "mobile-app-audit",
       "source": "./",
       "description": "Evidence-based audit, QA and bug verification for mobile apps (iOS, Android, Flutter, React Native).",
-      "version": "2.4.1",
+      "version": "2.5.0",
       "author": { "name": "Ronald Maco" },
       "license": "MIT",
       "keywords": ["mobile", "audit", "qa", "ios", "android", "flutter", "react-native", "testing"],

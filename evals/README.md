@@ -4,6 +4,7 @@ A small test set built from the real cases in `cases/`. Run it on every release 
 
 ## What is here
 - `evals.json`: one entry per eval: the prompt, the mode, the fixture folder, and what the answer **must** and **must not** do.
+- `triggers.json`: requests that should and should not load the skill, to check its description after any change to it.
 - `fixtures/`: small, anonymised code and data that reproduce each case. They do not compile on their own; they are enough for a code-reading audit.
 - `e008` has no case behind it on purpose: the right answer is "not reproduced, still Suspected". It checks that the skill does not invent a cause.
 
@@ -22,6 +23,7 @@ Run each eval **without** the skill too, at least once per agent. The difference
 |---|---|---|---|---|
 | 2.2.0 | Claude Code, Opus 5.5 | 8/8 (29/29 checks) | 5/8 (26/29 checks) | e001-e008. 1 run each, blind judge, failures re-checked. [Details and limits](results/2.2.0/claude-code/summary.md) |
 | 2.4.0 | Claude Code, Opus 5.5 | 5/5 (17/17 checks) | 5/5 (17/17 checks) | e009-e013 (Android). Too easy to separate the two; kept as a regression check. [Details](results/2.4.0/claude-code/summary.md) |
+| 2.5.0 | Claude Code, Opus 5.5 | Trigger: 8/8 should, 0/6 should not | n/a | Description fix; 2.4.1 scored 6/8 and 0/6. 1 run per prompt. [Details](results/2.5.0/claude-code/triggers.md) |
 
 ## Adding an eval
 Every new case in `cases/` should get one: a fixture that reproduces it in as few lines as possible, the user's words as the prompt, and must / must_not items that a reviewer can check without guessing.

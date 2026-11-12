@@ -2,6 +2,11 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## 2.5.0 - 2026-11-12
+- Skill description now also covers reports from users, testers or reviewers that something in a mobile app is wrong, wrong only for some users, intermittent or still failing after a fix. 2.4.1 did not load the skill for such requests (e014 prompt included).
+- New trigger eval `evals/triggers.json` (8 should, 6 should not). Claude Code, Opus 5.5, 1 run per prompt: 2.4.1 activated on 6/8 and 0/6; 2.5.0 on 8/8 and 0/6.
+- e014 hardened to v2 and piloted twice (ceiling both times; kept as a regression check). The pilots ran before this fix, so the skill was never invoked in them.
+
 ## 2.4.1 - 2026-11-11
 Docs and version metadata only; the skill's behaviour is unchanged.
 - README intro: findings are described as Verified (reproduced, shown by a request, or traced to a concrete code trigger) or Suspected, instead of "every finding is proven".

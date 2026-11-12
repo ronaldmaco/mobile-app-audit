@@ -1,6 +1,6 @@
 {
   "name": "mobile-app-audit",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "description": "Evidence-based audit, QA and bug verification for mobile apps: code, device testing, backend/CDN, security, performance, accessibility and store readiness.",
   "author": {
     "name": "Ronald Maco",

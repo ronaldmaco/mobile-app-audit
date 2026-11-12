@@ -161,7 +161,7 @@ The skill only needs file reading and a shell; device tools are optional. See [d
 | Native iOS (Swift, UIKit) | ✅ Used in real audits |
 | Native Android (Kotlin, legacy Java, XML views) | ✅ Used in real audits (cases 008-012) |
 | Flutter, React Native / Expo | ✔️ Covered by the checklist |
-| Objective-C, KMP, MAUI, Ionic, wearables, BLE | 🧭 Planned for 2.6 |
+| Objective-C, KMP, MAUI, Ionic, wearables, BLE | 🧭 Planned for 2.7 |
 
 ## 🧭 Roadmap
 

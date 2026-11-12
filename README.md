@@ -146,6 +146,8 @@ The cases are also an **[eval set](evals/)**: each one has a prompt, a small fix
 
 **Trigger eval (2.5.0):** on 14 prompts written together with the new description (1 run each), the skill loaded on 8/8 it should and 0/6 it should not; 2.4.1 loaded on 6/8. A second check with 8 prompts, 3 runs each (5 should load, one of them the e014 prompt and the rest new; 3 should not), capped at 4 turns, loaded on 14/15 and 0/9; it measures activation, not answer quality. e014, a harder eval where the fix exists on the other platform, hit the ceiling twice: the model found the fix without the skill, and the skill (2.4.1) never loaded, so the pilots did not test it. Kept as a regression check. [Details](evals/results/2.5.0/claude-code/triggers.md).
 
+**How we report results.** Every number above links to a results file with its runs, model and limits. Results where the skill adds nothing (Android 5/5 with and without it, e014 at the ceiling) are published like the rest, and where an eval favours the skill, the results say so. If a claim here says more than its data, please [open an issue](https://github.com/ronaldmaco/mobile-app-audit/issues).
+
 ## 🔌 Compatibility
 
 | Agent | Install | Status |

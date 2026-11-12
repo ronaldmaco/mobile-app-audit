@@ -1,0 +1,11 @@
+run_id,condition,model,iOS_discovery,divergence_identified,mandatory_hidden_pass,bonus_pass,critical_failures,out_of_scope_change,rubric_points,checksums,compiles_after_scope_filter
+e014-with-1,with,,,,,,,,,,
+e014-with-2,with,,,,,,,,,,
+e014-with-3,with,,,,,,,,,,
+e014-with-4,with,,,,,,,,,,
+e014-with-5,with,,,,,,,,,,
+e014-without-1,without,,,,,,,,,,
+e014-without-2,without,,,,,,,,,,
+e014-without-3,without,,,,,,,,,,
+e014-without-4,without,,,,,,,,,,
+e014-without-5,without,,,,,,,,,,

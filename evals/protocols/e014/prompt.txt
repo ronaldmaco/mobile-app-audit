@@ -1,0 +1,1 @@
+Some users see a successful payment even though we never received their payment details. It only happens with certain responses from our server, not every time. Please investigate, find the root cause, fix it, run the tests, and explain what you found.

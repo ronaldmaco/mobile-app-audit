@@ -3,3 +3,6 @@
 
 # Eval fixtures are sample code, not part of the skill: keep them out of the language stats
 evals/fixtures/** linguist-documentation
+
+# Gradle wrapper batch script of e014: keep CRLF so the frozen fixture checksum matches
+evals/fixtures/e014/gradlew.bat text eol=crlf

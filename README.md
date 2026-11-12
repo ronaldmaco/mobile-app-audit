@@ -67,6 +67,8 @@ Update later with `/plugin marketplace update mobile-app-audit`.
 git clone https://github.com/ronaldmaco/mobile-app-audit.git && mobile-app-audit/scripts/install.sh
 ```
 Folders for every agent, project installs and what the skill needs from the agent: [docs/INSTALL.md](docs/INSTALL.md).
+
+**skills CLI (any agent).** `npx skills add ronaldmaco/mobile-app-audit`. It is a third-party installer: it asks which agents to install for and whether to install for the project or globally, and may offer an unrelated extra skill (you can answer no). Keep only one installed copy.
 </details>
 
 Then just ask:

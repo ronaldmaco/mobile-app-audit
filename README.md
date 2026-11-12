@@ -9,7 +9,7 @@
   <a href="#-compatibility"><img src="https://img.shields.io/badge/Agent%20Skills%20format-validated%20on%20Claude%20Code-d97757" alt="Agent Skills format, validated on Claude Code"></a>
   <a href="evals/results/2.2.0/claude-code/summary.md"><img src="https://img.shields.io/badge/evals%20e001--e008%20%282.2.0%29-with%20skill%208%2F8%20%C2%B7%20without%205%2F8%20%C2%B7%201%20run%20each-8b5cf6" alt="Evals e001-e008 (2.2.0): with skill 8/8, without 5/8, 1 run per condition"></a>
   <a href="evals/results/2.4.0/claude-code/summary.md"><img src="https://img.shields.io/badge/evals%20e009--e013%20%282.4.0%29-with%20skill%205%2F5%20%C2%B7%20without%205%2F5%20%C2%B7%201%20run%20each-8b5cf6" alt="Evals e009-e013 (2.4.0): with skill 5/5, without 5/5, 1 run per condition"></a>
-  <a href="evals/results/2.5.0/claude-code/triggers.md"><img src="https://img.shields.io/badge/trigger%20eval%20%282.5.0%29-loads%208%2F8%20%C2%B7%20false%200%2F6%20%C2%B7%201%20run%20each-8b5cf6" alt="Trigger eval (2.5.0): loads on 8/8 requests it should, 0/6 it should not"></a>
+  <a href="evals/results/2.5.0/claude-code/triggers.md"><img src="https://img.shields.io/badge/trigger%20eval%20%282.5.0%29-loads%208%2F8%20%C2%B7%20false%200%2F6%20%C2%B7%201%20run%20each-8b5cf6" alt="Trigger eval (2.5.0): loads on 8/8 requests it should, 0/6 it should not, 1 run each, prompts written with the description"></a>
   <a href="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml"><img src="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml/badge.svg" alt="Anonymisation check"></a>
 </p>
 
@@ -142,7 +142,7 @@ The cases are also an **[eval set](evals/)**: each one has a prompt, a small fix
 
 **Android evals (2.4.0):** e009-e013 pass with and without the skill (5/5 each). They are too small to show a difference, so they serve as a regression check; harder Android fixtures are on the roadmap. [Details](evals/results/2.4.0/claude-code/summary.md).
 
-**Trigger eval (2.5.0):** the skill now loads on 8/8 requests it is meant for (bugs reported by users, testers or reviewers, audits, store readiness) and on 0/6 unrelated ones; 2.4.1 loaded on 6/8. e014, a harder eval where the fix exists on the other platform, was piloted twice and the model found it without the skill too, so it is kept as a regression check. [Details](evals/results/2.5.0/claude-code/triggers.md).
+**Trigger eval (2.5.0):** on 14 prompts written together with the new description (1 run each), the skill loaded on 8/8 it should and 0/6 it should not; 2.4.1 loaded on 6/8. Not yet checked on other phrasings or with repeated runs. e014, a harder eval where the fix exists on the other platform, hit the ceiling twice: the model found the fix without the skill, and the skill (2.4.1) never loaded, so the pilots did not test it. Kept as a regression check. [Details](evals/results/2.5.0/claude-code/triggers.md).
 
 ## 🔌 Compatibility
 

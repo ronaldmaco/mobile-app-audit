@@ -1,6 +1,6 @@
 # e014: the fix exists on the other platform
 
-Protocol for eval e014. **Status: v2; pilots 1 (v1) and 2 (v2) both hit the ceiling.** The eval does not separate the conditions on this model and is kept as a regression check only (see "Pilot 2 (v2)" below).
+Protocol for eval e014. **Status: v2; pilots 1 (v1) and 2 (v2) both hit the ceiling: the model found the fix without the skill. The skill (2.4.1) never loaded in any run, so neither pilot compared the model with and without it.** Kept as a regression check; no pilot has been run with 2.5.0.
 
 ## What it measures
 Whether the agent finds, **without being told**, that the same feature exists on iOS with the right behaviour, and uses it to fix Android. Built on the mechanism of [case 008](../../../cases/008-fixes-never-reached-the-other-platform.md). The Android evals e009-e013 pass with and without the skill, so this one is meant to be harder: the prompt never mentions iOS, platforms, HTTP codes or caching.
@@ -25,7 +25,7 @@ Hidden tests check public behaviour only (`PaymentService().handleResponse`). Ma
 3. Start a fresh agent session whose working directory is `<run_dir>/workspace`, with the same model in both conditions. The skill is installed only for `with`; for `without` it is uninstalled (not only "told not to use it"). The workspace has no `CLAUDE.md` or `AGENTS.md`, and user-level instruction files and memories are disabled (for example a clean agent config directory). Paste `prompt.txt` unchanged. Save the full transcript.
 4. `evals/protocols/e014/score-run.sh score <run_id> <run_dir>`. It:
    - builds `<run_dir>/scored` from a fresh copy of the frozen fixture plus **only** the agent's `android/src/main/**` (new files there and parser refactors are allowed);
-   - records every other changed path as `out_of_scope_change`, and changes to visible tests or any file under `ios/` as critical;
+   - records every other changed path as `out_of_scope_change`, and any change under `ios/`, and deleted or changed lines in visible tests, as critical; tests that are only added are recorded as `visible_tests_extended`;
    - compiles once (`compiles_after_scope_filter`). A compile failure with out-of-scope changes present is reported as "failed due to out-of-scope dependency"; without them it is a plain failure of the agent's code;
    - copies the hidden tests in, runs them, and writes `<run_dir>/checksums.txt` (prompt, model config, rubric, each hidden test and each fixture file) and `<run_dir>/auto-row.csv`.
 5. A human fills the remaining columns from the transcript and the rubric, and copies the row into the CSV.
@@ -65,9 +65,10 @@ Raw data stay in the private folder; nothing here is a claim about the skill.
 ## Pilot 2 (v2), 2026-11-12
 Same setup as pilot 1, new randomized order.
 - With skill: `iOS_discovery` 5/5, mandatory 14/14 in 5/5 runs (status rule only stated in iOS: 5/5 in every run), `skill_activated` 0/5. Without skill: `iOS_discovery` 5/5, mandatory 14/14 in 5/5 (status rule 5/5 in every run). Difference: 0 and 0.
+- `skill_activated` 0/5: the with condition did not test the skill.
 - Rule fired: ceiling effect again. Every run listed all files first and then read the payment code on both platforms, so the baseline already does the cross-platform comparison this eval was built to test.
 - Decision: stop piloting e014. Keep it as a regression check. A discriminating version would need the other platform outside the workspace or a much larger repository; that is a new eval, not a third pilot.
-- Every run in both pilots added tests to the visible test file without removing lines; `score-run.sh` flags any change there as critical, so the human check of "weakened" remains.
+- Every run in both pilots only added tests to the visible test file (0 lines removed). With the corrected rule, critical failures are 0/5 in both conditions of both pilots; all 20 runs are `visible_tests_extended`.
 
 ## Freeze
 Before the first run, the fixture, hidden tests, rubric, prompt and model configuration are frozen. `fixture.sha256` is the frozen fixture manifest; `score-run.sh` refuses to prepare or score if the fixture differs from it. Per-file checksums of every input used are stored per run in `checksums.txt`. Keep the hidden tests and rubric unchanged across all runs of the pilot, and back up the private folder: it is not in git.

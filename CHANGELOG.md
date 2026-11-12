@@ -3,8 +3,8 @@
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
 ## 2.5.0 - 2026-11-12
-- Skill description now also covers reports from users, testers or reviewers that something in a mobile app is wrong, wrong only for some users, intermittent or still failing after a fix. 2.4.1 did not load the skill for such requests (e014 prompt included).
-- New trigger eval `evals/triggers.json` (8 should, 6 should not). Claude Code, Opus 5.5, 1 run per prompt: 2.4.1 activated on 6/8 and 0/6; 2.5.0 on 8/8 and 0/6.
+- Skill description now also covers reports from users, testers or reviewers that something in a mobile app is wrong, wrong only for some users, intermittent or still failing after a fix. 2.4.1 missed 2 of 8 trigger prompts (the e014 prompt and a request to review payment code before a release) and never loaded in the 10 with-skill runs of the e014 pilots.
+- New trigger eval `evals/triggers.json` (8 should, 6 should not), written in the same session as the new description. Claude Code, Opus 5.5, 1 run per prompt and description: 2.4.1 activated on 6/8 and 0/6; 2.5.0 on 8/8 and 0/6.
 - e014 hardened to v2 and piloted twice (ceiling both times; kept as a regression check). The pilots ran before this fix, so the skill was never invoked in them.
 
 ## 2.4.1 - 2026-11-11

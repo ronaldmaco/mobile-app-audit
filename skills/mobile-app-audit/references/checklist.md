@@ -87,7 +87,7 @@ Run the project's own checks before reading code. Record each command, its exit 
 - No layout on deprecated/no-op APIs.
 
 ## Platform and dependencies
-- Target/minimum SDK meet store requirements; deprecation warnings reviewed.
+- Target/minimum SDK meet store requirements (`references/store.md`); deprecations and what breaks next year in `references/future-risk.md`.
 - SDKs initialised once, on the right thread, versions supporting the current OS.
 - Known vulnerabilities listed, not upgraded without approval.
 
@@ -104,7 +104,7 @@ Measure, do not estimate. Compare with a baseline you recorded (previous build o
 - **Launch:** Android `adb shell am start -S -W -n <pkg>/<activity>` (TotalTime), 5 runs, median. iOS: `xcrun xctrace record --template 'App Launch' --device <id> --launch -- <app path>`, or an XCTest with `XCTApplicationLaunchMetric`. The first launch after install is slower; judge normal relaunches.
 - **Jank:** Android `adb shell dumpsys gfxinfo <pkg> reset`, run the flow, then `adb shell dumpsys gfxinfo <pkg>` (Janky frames %). iOS: `xcrun xctrace record --template 'Time Profiler' --attach <App> --time-limit 30s`, look for main-thread work. Flutter: DevTools performance view on a profile build (`flutter run --profile`). agent-device: `perf frames`, `perf cpu profile`.
 - **Memory growth:** sample memory (`adb shell dumpsys meminfo <pkg>`; iOS Xcode memory gauge or `xcrun xctrace record --template 'Leaks'`; agent-device `perf memory sample`) before and after repeating one navigation 10 times. Steady growth is a finding; then find the unpaired resource statically: timers created vs invalidated, observers and listeners added vs removed, tasks, subscriptions and coroutines stored vs cancelled, `[weak self]` in long-lived closures. LeakCanary on Android debug builds names the leak.
-- **ANRs / watchdog kills** in production reports (`references/store-and-telemetry.md`).
+- **ANRs / watchdog kills** in production reports (`references/telemetry.md`).
 
 ## Accessibility
 - **Labels and target size from the UI tree:** Android `adb shell uiautomator dump /sdcard/ui.xml && adb pull /sdcard/ui.xml`; every node with `clickable="true"` needs a `text` or `content-desc`, and bounds of at least 48dp (px = dp x `adb shell wm density` / 160). iOS: Accessibility Inspector audit (Xcode, Open Developer Tool), or `try app.performAccessibilityAudit()` in an XCUITest; tappable elements need a label and 44pt. A device tool's element list works too.

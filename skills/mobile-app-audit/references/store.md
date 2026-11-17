@@ -1,0 +1,48 @@
+# Store readiness
+
+Mode E. Every rule here was read on the official Apple or Google page named next to it on 2026-11-17. Rules change several times a year: before you report a rule as the cause of a rejection or a blocker, open its page again and quote the current wording with the date you read it. Version numbers and deadlines are not written here on purpose; read them from the pages (see `references/future-risk.md`).
+
+Sources:
+- Apple: App Review Guidelines (developer.apple.com/app-store/review/guidelines), Offering account deletion in your app (developer.apple.com/support/offering-account-deletion-in-your-app), Upcoming requirements (developer.apple.com/news/upcoming-requirements), Submitting (developer.apple.com/app-store/submitting).
+- Google: Developer Policy Center (play.google/developer-content-policy) and its Play Console Help articles (User Data, Permissions and APIs that Access Sensitive Information, Payments, account deletion), Target API level requirements (developer.android.com/google/play/requirements/target-sdk), Support 16 KB page sizes (developer.android.com/guide/practices/page-sizes), Versioning (developer.android.com/studio/publish/versioning), Android 13 and 14 behaviour changes.
+
+## Our checks before any rule (both stores)
+They are not store rules, but they decide whether a reviewer can test the app at all:
+- **The reviewer can get in.** Reviewers may test from another region (Apple's are mostly in the US). From that region (VPN, confirm with ipinfo) check every host the app uses, including CDN and WAF rules (`references/backend.md`). The demo account works, is not expired, needs no SMS or 2FA code the reviewer cannot receive, and is in a state with real content.
+- **Forced-update gate:** the submitted build number passes the app's own minimum-version check on the server.
+- **Exact toolchain:** build and launch with the Xcode/SDK or Android Gradle Plugin used for submission, on the newest OS simulator or emulator; new SDKs can make old lifecycles fail at launch (`cases/004`).
+- **Build numbers:** iOS build number higher than any build already uploaded for that version (check TestFlight); Android `versionCode` never used before (Versioning page).
+- **Account deletion removes data on the server** (call the API after deleting; the account must be gone, not disabled).
+- **Rejection reply:** answer in the submission thread with cause and fix; a server-side fix needs no new build.
+
+## Apple App Store
+| Rule (source) | Verify |
+|---|---|
+| **2.1 App completeness:** give demo account details for apps with login, and keep backend services live during review | Sign in with the demo account from the review region; all hosts reachable. |
+| **5.1.1(v) Account deletion:** apps that support account creation let people start deletion inside the app; deletion removes the account and its data; a link out to a browser alone does not satisfy it (account deletion page) | Walk the flow on device; call the API after deletion. |
+| **5.1.1 Purpose strings** clearly and completely describe how the app uses the data | `plutil -p App.app/Info.plist \| grep UsageDescription`; every key has a specific sentence; compare with the frameworks the binary links (`otool -L App.app/<binary>`) and the permission prompts seen on device. |
+| **Required-reason APIs:** to upload, the app must declare approved reasons for the listed APIs, including those used by third-party SDKs (Upcoming requirements, entry since 2024) | `find App.app -name PrivacyInfo.xcprivacy`, then `plutil -p` each; or Xcode Organizer, right-click the archive, Generate Privacy Report. |
+| **Upload toolchain and minimum OS target** (Upcoming requirements, Submitting) | `xcodebuild -version`; `DTSDKName` and `MinimumOSVersion` in the built `Info.plist` vs the current values on the page. |
+| **3.1.1 In-app purchase** for unlocking features, subscriptions or premium content; no license keys or codes as an alternative; a restore mechanism for restorable purchases | Dependency list and checkout URLs near entitlement code; restore button on device with a sandbox account. |
+| **3.1.2 Subscriptions:** before asking someone to subscribe, describe clearly what they get for the price | Screenshot the paywall on device; read the current 3.1.2 text and the license agreement schedule it points to for the exact fields. |
+| **1.2 User-generated content** (AI content creation apps included): filter objectionable content, a way to report it with timely responses, block abusive users, published contact information | Find every screen showing other users' or AI-generated content; walk report and block on device. |
+| **4.8 Login services:** a third-party or social login for the primary account must be paired with an equivalent option that limits data to name and email, lets users keep their email private, and does not use interactions for ads without consent; read the exemptions on the page | List the login options; check the equivalent option on device. Do not write "Sign in with Apple is required"; the rule is the equivalent option. |
+| **5.1.2 Tracking:** tracking needs permission through App Tracking Transparency; sharing personal data with third parties, including third-party AI, needs disclosure and explicit permission | Tracking SDKs in the dependency list vs `NSUserTrackingUsageDescription`; prompt shown before those SDKs start (read the init order, confirm with logs). |
+| **2.3.3 Screenshots** show the app in use, not only title art, login or splash | Look at the App Store Connect screenshots. |
+| **4.2 Minimum functionality:** more than a repackaged website | List native features; a single WebView app is at risk. |
+
+## Google Play
+| Rule (source) | Verify |
+|---|---|
+| **Target API level** for new apps and updates (Target API level page) | `targetSdk` in `build.gradle(.kts)` or `aapt2 dump badging app.apk \| grep targetSdkVersion` vs the current value on the page. |
+| **Account deletion:** apps with account creation offer deletion in the app and through a web link entered in Play Console; freezing the account does not count (account deletion Help article) | Walk the flow; open the web link logged out; call the API after deletion. |
+| **Data safety** section accurate for collection, use and sharing, including by SDKs, and consistent with the privacy policy (User Data) | `./gradlew :app:dependencies --configuration releaseRuntimeClasspath` and the merged manifest (`app/build/intermediates/merged_manifests/release/`) vs the declared form. |
+| **Prominent disclosure:** in-app disclosure before requesting permissions or consent where collection may be unexpected (for example in the background); consent needs an affirmative action, not back or tap-away (User Data) | Screen order on device before each sensitive permission prompt. |
+| **Restricted permissions** need a core-use reason and a Console declaration: SMS and Call Log, `QUERY_ALL_PACKAGES`, `MANAGE_EXTERNAL_STORAGE`, `READ_MEDIA_IMAGES`/`READ_MEDIA_VIDEO` (only when the photo picker is not enough), `REQUEST_INSTALL_PACKAGES` (not for self-updates), Accessibility services, `USE_FULL_SCREEN_INTENT` (calling and alarm apps). Exact alarms: re-read that section before reporting (Permissions and APIs that Access Sensitive Information) | `aapt2 dump permissions app.apk` (or `bundletool dump manifest --bundle app.aab`); for each hit, find the code that uses it. A permission merged from an SDK and never used should be removed (`tools:node="remove"`). |
+| **Foreground service types:** apps targeting API 34+ declare a type for every foreground service (Android 14 behaviour changes) | Merged manifest: each `<service>` started as foreground has `android:foregroundServiceType`; the matching `FOREGROUND_SERVICE_*` permission is declared. |
+| **16 KB page size** for apps targeting API 35+ with native code; read the enforcement date on the page | `zipalign -c -P 16 -v 4 app.apk` ("Verification successful"); `llvm-objdump -p lib.so \| grep LOAD` (alignment 2**14 or higher); on a 16 KB emulator `adb shell getconf PAGE_SIZE` returns 16384 and the app launches. |
+| **Play Billing** for in-app purchases of digital items, subscriptions, features and content; exceptions include physical goods and services; alternative billing only through enrolled programs (Payments) | Dependency list for other payment SDKs; checkout URLs near entitlement code. |
+| **Advertising ID:** apps targeting API 33+ that use it declare the Play services `AD_ID` permission (`<uses-permission>` ending in `gms.permission.AD_ID`), otherwise the ID is zeros (Android 13 behaviour changes) | Merged manifest; if the app has no ads or analytics that need it, an SDK may have merged it anyway: decide and declare it in Console consistently. |
+| **Sign-in details for review** | Read the Play page "Requirements for providing sign in details for review" from the Policy Center and fill App access with a working test account. |
+
+Not included because they could not be confirmed on an official page on the date above: an export-compliance key as a blocker, an icon transparency rule, specific upload error codes, a debuggable-build upload rejection and a standalone 64-bit rule. Check them on the official pages before reporting them.

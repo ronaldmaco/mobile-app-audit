@@ -102,7 +102,7 @@ A finding only when biometrics protect a secret or a server action.
 ## Privacy and consent (keep)
 - Every consent switch (analytics, ads, personalisation) is wired to every SDK it governs, reverts on a failed save, and logout resets SDK identities (`cases/005`).
 - Per-user caches live in a non-backed-up location (iOS `Caches`, Android `cacheDir`), never store write responses, and are cleared on logout.
-- Permissions asked only when needed, with purpose strings; collected data matches the privacy manifest and Data safety form (`references/store-and-telemetry.md`).
+- Permissions asked only when needed, with purpose strings; collected data matches the privacy manifest and Data safety form (`references/store.md`).
 
 ## Avoid
 - Generic "secret" regexes without reading the hit; flagging `exported="true"` alone; requiring root, jailbreak or Frida; calling an issue Critical before a request or device run shows it.

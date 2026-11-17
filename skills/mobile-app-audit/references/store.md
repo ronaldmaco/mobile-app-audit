@@ -8,7 +8,7 @@ Sources:
 
 ## Our checks before any rule (both stores)
 They are not store rules, but they decide whether a reviewer can test the app at all:
-- **The reviewer can get in.** Reviewers may test from another region (Apple's are mostly in the US). From that region (VPN, confirm with ipinfo) check every host the app uses, including CDN and WAF rules (`references/backend.md`). The demo account works, is not expired, needs no SMS or 2FA code the reviewer cannot receive, and is in a state with real content.
+- **The reviewer can get in.** Reviewers may test from a region other than your users' (no official page says which). From the US and any other likely region (VPN, confirm with ipinfo) check every host the app uses, including CDN and WAF rules (`references/backend.md`). The demo account works, is not expired, needs no SMS or 2FA code the reviewer cannot receive, and is in a state with real content.
 - **Forced-update gate:** the submitted build number passes the app's own minimum-version check on the server.
 - **Exact toolchain:** build and launch with the Xcode/SDK or Android Gradle Plugin used for submission, on the newest OS simulator or emulator; new SDKs can make old lifecycles fail at launch (`cases/004`).
 - **Build numbers:** iOS build number higher than any build already uploaded for that version (check TestFlight); Android `versionCode` never used before (Versioning page).

@@ -8,6 +8,15 @@ Read the code path end to end for each area in scope and answer every question. 
 - **Shared data map:** for each piece of user data (preferences, filters, likes, profile), which screens read it and which requests send it. This is the "consumers" axis of every impact map.
 - Test setup: which test targets exist and whether they build and run today.
 - Ask only for what cannot be found: test accounts, devices/regions that matter, known complaints (recorded as hypotheses).
+- **Completeness scan (mode D):** `grep -rnE 'TODO|FIXME|not implemented|placeholder|lorem ipsum|fatalError\("|TODO\(\)' <screen and feature folders>`, then cross-check the route list (navigation graph, router, storyboards) against screens that exist. Each hit is Suspected until opened on a device.
+
+## Build health gates (modes D, E)
+Run the project's own checks before reading code. Record each command, its exit code and the last lines of output. A check the project does not have is "not configured", never "passed".
+- Android: `./gradlew lint test assembleRelease`.
+- iOS: `xcodebuild test -scheme <scheme> -destination 'platform=iOS Simulator,name=<device>'`, then a Release build of the same scheme.
+- Flutter: `flutter analyze && flutter test`, then `flutter build apk --release` or `flutter build ios --release --no-codesign`.
+- React Native / Expo: the package scripts (`npm run lint`, `npm test`, `npx tsc --noEmit`); Expo: `npx expo-doctor`, `npx expo install --check`, `npx expo export`.
+- App size vs the previous release: `bundletool get-size total --apks=<app>.apks`; `du -h` of the IPA/APK. Record it in the audit log; flag growth with its cause (new SDK, assets), not against an invented limit.
 
 ## Launch, lifecycle, navigation
 - Correct lifecycle for the target SDK (iOS UIScene; Android activity/fragment lifecycle, process death; Flutter/RN app state).
@@ -99,14 +108,17 @@ Read the code path end to end for each area in scope and answer every question. 
 - **Caches:** per-user caches live in a non-backed-up location (iOS `Caches`, Android `cacheDir`), never store write responses, and are cleared on logout.
 
 ## Performance
-- Cold start well under 2 s to first useful screen (Instruments App Launch; `adb shell am start -W`). First launch after install can be slower; measure a normal relaunch too.
-- Main-thread work and jank (Time Profiler, Android Profiler, Flutter DevTools).
-- Memory growth on repeated navigation (Leaks, LeakCanary).
-- ANRs / watchdog kills in production reports.
+Measure, do not estimate. Compare with a baseline you recorded (previous build or release) instead of a fixed threshold. A metric you did not measure is a "not measured" row in the coverage table, never OK.
+- **Launch:** Android `adb shell am start -S -W -n <pkg>/<activity>` (TotalTime), 5 runs, median. iOS: `xcrun xctrace record --template 'App Launch' --device <id> --launch -- <app path>`, or an XCTest with `XCTApplicationLaunchMetric`. The first launch after install is slower; judge normal relaunches.
+- **Jank:** Android `adb shell dumpsys gfxinfo <pkg> reset`, run the flow, then `adb shell dumpsys gfxinfo <pkg>` (Janky frames %). iOS: `xcrun xctrace record --template 'Time Profiler' --attach <App> --time-limit 30s`, look for main-thread work. Flutter: DevTools performance view on a profile build (`flutter run --profile`). agent-device: `perf frames`, `perf cpu profile`.
+- **Memory growth:** sample memory (`adb shell dumpsys meminfo <pkg>`; iOS Xcode memory gauge or `xcrun xctrace record --template 'Leaks'`; agent-device `perf memory sample`) before and after repeating one navigation 10 times. Steady growth is a finding; then find the unpaired resource statically: timers created vs invalidated, observers and listeners added vs removed, tasks, subscriptions and coroutines stored vs cancelled, `[weak self]` in long-lived closures. LeakCanary on Android debug builds names the leak.
+- **ANRs / watchdog kills** in production reports (`references/store-and-telemetry.md`).
 
 ## Accessibility
-- Every tappable element labelled; touch targets 44pt / 48dp; WCAG AA contrast; largest font without clipping.
-- Logical focus order; no information by colour only; reduce motion respected.
+- **Labels and target size from the UI tree:** Android `adb shell uiautomator dump /sdcard/ui.xml && adb pull /sdcard/ui.xml`; every node with `clickable="true"` needs a `text` or `content-desc`, and bounds of at least 48dp (px = dp x `adb shell wm density` / 160). iOS: Accessibility Inspector audit (Xcode, Open Developer Tool), or `try app.performAccessibilityAudit()` in an XCUITest; tappable elements need a label and 44pt. A device tool's element list works too.
+- **Contrast:** Accessibility Inspector audit (iOS), Accessibility Scanner app (Android); WCAG AA.
+- **Largest text:** rerun the main flows at the largest size (`xcrun simctl ui booted content_size accessibility-extra-extra-extra-large`; `adb shell settings put system font_scale 2.0`); clipped or overlapping text is a finding.
+- Logical focus order (VoiceOver/TalkBack walk); no information by colour only; reduce motion respected.
 
 ## Localization
 - No hard-coded user strings if localized; locale formats; long translations and RTL fit.

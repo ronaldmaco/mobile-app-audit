@@ -10,6 +10,10 @@ Goal: every screen and flow does what the user expects under real conditions (sl
 <!--
 Maintainer notes
 - Author: Ronald Maco (https://github.com/ronaldmaco)
+- v2.6.0 (2026-11-17): modes F (autopsy) and G (future risk); references security.md, store.md (rules read
+  on official pages), telemetry.md, autopsy.md, future-risk.md; build health gates, measured performance,
+  refute pass, first-time user sweep. Evals e015-e018: 4/4 with, 2/4 without (1 run each; favour the skill).
+  Description unchanged (trigger not re-measured).
 - v2.5.0 (2026-11-12): description also covers user/tester/reviewer reports of wrong, intermittent or still-failing behaviour; trigger eval 8/8 should, 0/6 should not (1 run each; 2.4.1: 6/8, 0/6).
 - v2.4.1 (2026-11-11): README and version metadata only (honest claims on findings, evals and agents); skill unchanged.
 - v2.4: sibling check method, Android patterns from cases 008-012.

@@ -1,5 +1,5 @@
 {
-  "version": "2.4.0",
+  "version": "2.6.0",
   "notes": "Each eval gives the agent a prompt and a fixture folder. Grade the answer against must / must_not. An eval passes when every 'must' item is met and no 'must_not' item happens.",
   "evals": [
     {

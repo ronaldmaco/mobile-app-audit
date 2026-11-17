@@ -3,13 +3,14 @@
 </p>
 
 <p align="center">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.5.0-22c55e" alt="Version 2.5.0"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.6.0-22c55e" alt="Version 2.6.0"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/iOS%20%C2%B7%20Android%20%C2%B7%20Flutter%20%C2%B7%20React%20Native-supported-0ea5e9" alt="iOS, Android, Flutter, React Native">
   <a href="#-compatibility"><img src="https://img.shields.io/badge/Agent%20Skills%20format-validated%20on%20Claude%20Code-d97757" alt="Agent Skills format, validated on Claude Code"></a>
   <a href="evals/results/2.2.0/claude-code/summary.md"><img src="https://img.shields.io/badge/evals%20e001--e008%20%282.2.0%29-with%20skill%208%2F8%20%C2%B7%20without%205%2F8%20%C2%B7%201%20run%20each-8b5cf6" alt="Evals e001-e008 (2.2.0): with skill 8/8, without 5/8, 1 run per condition"></a>
   <a href="evals/results/2.4.0/claude-code/summary.md"><img src="https://img.shields.io/badge/evals%20e009--e013%20%282.4.0%29-with%20skill%205%2F5%20%C2%B7%20without%205%2F5%20%C2%B7%201%20run%20each-8b5cf6" alt="Evals e009-e013 (2.4.0): with skill 5/5, without 5/5, 1 run per condition"></a>
   <a href="evals/results/2.5.0/claude-code/triggers.md"><img src="https://img.shields.io/badge/trigger%20eval%20%282.5.0%29-loads%208%2F8%20%C2%B7%20false%200%2F6%20%C2%B7%201%20run%20each-8b5cf6" alt="Trigger eval (2.5.0): loads on 8/8 requests it should, 0/6 it should not, 1 run each, prompts written with the description"></a>
+  <a href="evals/results/2.6.0/claude-code/summary.md"><img src="https://img.shields.io/badge/evals%20e015--e018%20%282.6.0%29-with%20skill%204%2F4%20%C2%B7%20without%202%2F4%20%C2%B7%201%20run%20each-8b5cf6" alt="Evals e015-e018 (2.6.0): with skill 4/4, without 2/4, 1 run per condition, written with the references they test"></a>
   <a href="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml"><img src="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml/badge.svg" alt="Anonymisation check"></a>
 </p>
 
@@ -27,6 +28,11 @@
 </p>
 
 ---
+
+<p align="center">
+  <img src="assets/demo.gif" alt="Demo: a bug report, reproduced on an iOS simulator, root cause with file and line, the smallest fix, and the impact map re-verified" width="100%">
+  <br><sub>Real simulator run, only sped up, on a demo app with a planted bug (<a href="demo/">how it was made</a>). It shows the method, not a measured result.</sub>
+</p>
 
 ## 🤔 The problem
 
@@ -89,6 +95,8 @@ The agent picks the **smallest mode** that answers your question:
 | **C · Targeted audit** | One area: login, filters, payments, push… |
 | **D · Full audit** | Before a release, or on a codebase you just inherited |
 | **E · Store readiness** | Before App Store / Google Play submission, or after a rejection |
+| **F · Autopsy** | Something already failed in production: how, when it entered, why nothing caught it |
+| **G · Future risk** | "Will it still work next year?": store minimums, deprecations, abandoned libraries, expiring certificates, each with a dated official source |
 
 Every bug goes through the same loop:
 
@@ -103,7 +111,7 @@ flowchart LR
     F -- not yet --> H["Report the<br/>exact state"]
 ```
 
-It covers code review, device testing under bad conditions (slow or lost network, app killed, other regions, old data), backend and CDN checks, security (OWASP MASVS), performance, accessibility, production crashes and store rules.
+It covers code review, build health (lint, tests, release build), device testing under bad conditions (slow or lost network, app killed, other regions, old data), a first-time user sweep (impatient, skeptic, small screen and slow network, other language, breaker), backend and CDN checks, security (ranked checks based on OWASP MASVS, each with a way to verify it), measured performance, accessibility, production crashes and store rules confirmed on the official Apple and Google pages. Before a Critical or High finding, the agent writes down how it tried to prove itself wrong.
 
 ## 📄 What you get
 
@@ -121,7 +129,7 @@ Delivery: app build 3.4.2 (1); CMS fix by the content team, no build needed
 
 ## 🧪 Real cases
 
-Every check in the skill comes from a real audit, on iOS and Android. Each case is **anonymised**: the domain, names and numbers are changed, and only the mechanism is kept.
+The core method and the patterns come from real audits on iOS and Android. The security, store and future-risk references added in 2.6 come from official documentation and OWASP MASVS instead, and say so. Each case is **anonymised**: the domain, names and numbers are changed, and only the mechanism is kept.
 
 | # | Case | What it taught the skill |
 |---|---|---|
@@ -146,6 +154,8 @@ The cases are also an **[eval set](evals/)**: each one has a prompt, a small fix
 
 **Trigger eval (2.5.0):** on 14 prompts written together with the new description (1 run each), the skill loaded on 8/8 it should and 0/6 it should not; 2.4.1 loaded on 6/8. A second check with 8 prompts, 3 runs each (5 should load, one of them the e014 prompt and the rest new; 3 should not), capped at 4 turns, loaded on 14/15 and 0/9; it measures activation, not answer quality. e014, a harder eval where the fix exists on the other platform, hit the ceiling twice: the model found the fix without the skill, and the skill (2.4.1) never loaded, so the pilots did not test it. Kept as a regression check. [Details](evals/results/2.5.0/claude-code/triggers.md).
 
+**Store, security, autopsy and future risk (2.6.0):** e015-e018 pass 4/4 with the skill and 2/4 without (1 run each, blind judge). Store and security pass in both conditions; the differences are method (why a crash was missed, a dated source for every future risk). These evals were written together with the references they test, so they favour the skill. [Details and limits](evals/results/2.6.0/claude-code/summary.md).
+
 **How we report results.** Every number above links to a results file with its runs, model and limits. Results where the skill adds nothing (Android 5/5 with and without it, e014 at the ceiling) are published like the rest, and where an eval favours the skill, the results say so. If a claim here says more than its data, please [open an issue](https://github.com/ronaldmaco/mobile-app-audit/issues).
 
 ## 🔌 Compatibility
@@ -165,7 +175,7 @@ The skill only needs file reading and a shell; device tools are optional. See [d
 | Native iOS (Swift, UIKit) | ✅ Used in real audits |
 | Native Android (Kotlin, legacy Java, XML views) | ✅ Used in real audits (cases 008-012) |
 | Flutter, React Native / Expo | ✔️ Covered by the checklist |
-| Objective-C, KMP, MAUI, Ionic, wearables, BLE | 🧭 Planned for 2.7 |
+| Objective-C, KMP, MAUI, Ionic, wearables, BLE | 🧭 Planned for 2.8 |
 
 ## 🧭 Roadmap
 
@@ -174,9 +184,11 @@ The skill only needs file reading and a shell; device tools are optional. See [d
 - [x] **2.3 Any agent:** tools described by what they do, installer for any agent, `AGENTS.md`, per-agent install guide and compatibility results
 - [x] **2.4 Android:** five real Android cases (Kotlin, legacy Java), Kotlin evals, sibling check method across platforms
 - [x] **2.5 Trigger:** the skill loads for reported mobile bugs, trigger eval in `evals/triggers.json`, e014 eval hardened and piloted (ceiling reached; kept as a regression check)
-- [ ] **2.6 Flows:** OTP and 2FA, social login and passkeys, magic links, payments and subscriptions, onboarding and permissions, offline sync, uploads, forced update
-- [ ] **2.7 More stacks:** Objective-C, Kotlin Multiplatform, .NET MAUI, Ionic/Capacitor, CocoaPods/SPM, watchOS/Wear OS, Bluetooth; harder Android evals
-- [ ] **2.8 Wider cases:** apps the maintainer did not build, reviewed with the owner's permission (open-source apps, or under a client agreement); each finding is rewritten as an anonymised case that states its origin
+- [x] **2.6 Audit depth:** autopsy and future-risk modes, first-time user sweep, build health gates, measured performance, a security reference and store rules confirmed on the official pages (each check with a way to verify it), evals e015-e018, a demo GIF from a real simulator run
+- [ ] **2.6.1 Measured against neighbours:** does the skill load next to mobile-mcp and agent-device skills (test ready, not run yet), and a head-to-head with other mobile QA skills, published even if we lose
+- [ ] **2.7 Flows:** OTP and 2FA, social login and passkeys, magic links, payments and subscriptions, onboarding and permissions, offline sync, uploads, forced update
+- [ ] **2.8 More stacks:** Objective-C, Kotlin Multiplatform, .NET MAUI, Ionic/Capacitor, CocoaPods/SPM, watchOS/Wear OS, Bluetooth; harder Android evals
+- [ ] **2.9 Wider cases:** apps the maintainer did not build, reviewed with the owner's permission (open-source apps, or under a client agreement); each finding is rewritten as an anonymised case that states its origin
 - [ ] A Maestro flow for every verified bug, so the scenario runs in CI
 - [ ] Spec conformance, data correctness (calculations, time zones, sync), architecture review
 
@@ -186,7 +198,7 @@ Real cases make this auditor sharper. When the skill misses something, open a **
 
 ## 👤 Author
 
-Created and maintained by **[Ronald Maco](https://github.com/ronaldmaco)**. The cases, checks and judgement come from his audits of real mobile apps; he decides what goes in and reviews every change. [Claude Code](https://claude.com/claude-code) helps with drafting and automation, so commits it worked on carry a `Co-Authored-By` line.
+Created and maintained by **[Ronald Maco](https://github.com/ronaldmaco)**. The cases and the judgement behind the method come from his audits of real mobile apps; he decides what goes in and reviews every change. [Claude Code](https://claude.com/claude-code) helps with drafting and automation, so commits it worked on carry a `Co-Authored-By` line.
 
 ## 📜 License
 

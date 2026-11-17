@@ -1,0 +1,18 @@
+{
+ "e015": {
+  "with": "A",
+  "without": "B"
+ },
+ "e016": {
+  "with": "B",
+  "without": "A"
+ },
+ "e017": {
+  "with": "B",
+  "without": "A"
+ },
+ "e018": {
+  "with": "B",
+  "without": "A"
+ }
+}

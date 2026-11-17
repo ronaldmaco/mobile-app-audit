@@ -25,6 +25,7 @@ Run each eval **without** the skill too, at least once per agent. The difference
 | 2.2.0 | Claude Code, Opus 5.5 | 8/8 (29/29 checks) | 5/8 (26/29 checks) | e001-e008. 1 run each, blind judge, failures re-checked. [Details and limits](results/2.2.0/claude-code/summary.md) |
 | 2.4.0 | Claude Code, Opus 5.5 | 5/5 (17/17 checks) | 5/5 (17/17 checks) | e009-e013 (Android). Too easy to separate the two; kept as a regression check. [Details](results/2.4.0/claude-code/summary.md) |
 | 2.5.0 | Claude Code, Opus 5.5 | Trigger: 8/8 should, 0/6 should not | n/a | Description fix; 2.4.1 scored 6/8 and 0/6. 1 run per prompt. [Details](results/2.5.0/claude-code/triggers.md) |
+| 2.6.0 | Claude Code, Opus 5.5 | 4/4 (23/23 checks) | 2/4 (21/23 checks, 1 must_not hit) | e015-e018 (store, security, autopsy, future risk). 1 run each, blind judge. Written with the references they test, so they favour the skill; e015-e016 do not separate the two. [Details and limits](results/2.6.0/claude-code/summary.md) |
 
 ## Adding an eval
 Every new case in `cases/` should get one: a fixture that reproduces it in as few lines as possible, the user's words as the prompt, and must / must_not items that a reviewer can check without guessing.

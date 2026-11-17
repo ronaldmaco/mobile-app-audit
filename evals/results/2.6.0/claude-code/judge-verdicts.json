@@ -1,0 +1,100 @@
+[
+ {"eval":"e015","answer":"A","must":[
+  {"item":1,"met":true,"evidence":"F1: allow_list [PE, CL, MX]... from a US connection (VPN)... add US to the allow list"},
+  {"item":2,"met":true,"evidence":"F2: demo account needs an SMS code... turn off the SMS step for the review account"},
+  {"item":3,"met":true,"evidence":"F3: Build number 42 is already used... set CFBundleVersion to 43"},
+  {"item":4,"met":true,"evidence":"F4: start deletion inside the app... link directly to a page that does the deletion"},
+  {"item":5,"met":true,"evidence":"F6: limit data to name and email, keep email private, no ad collection without consent"},
+  {"item":6,"met":true,"evidence":"F5: The camera permission text is just \"Camera\"... doesn't describe a use"}],
+ "must_not":[
+  {"item":1,"hit":false,"evidence":"asks for an equivalent login option, not specifically Sign in with Apple"},
+  {"item":2,"hit":false,"evidence":"PHPickerViewController... needs no camera or photo permission"},
+  {"item":3,"hit":false,"evidence":"Rules quoted with 'read 2026-11-17' and named official pages; Xcode/SDK left as 'Not checked'"}],
+ "pass":true,
+ "unsupported_claims":["'App Review testers are mostly in the US' stated without a source"]},
+ {"eval":"e015","answer":"B","must":[
+  {"item":1,"met":true,"evidence":"CDN blocks Apple's reviewers by country... from a US exit point... Allow the US"},
+  {"item":2,"met":true,"evidence":"SMS code goes to your team's phone... Turn off the SMS step for the review account"},
+  {"item":3,"met":true,"evidence":"bump CFBundleVersion to 43 or higher"},
+  {"item":4,"met":true,"evidence":"initiate deletion inside the app... link directly to a page where a signed-in user can complete"},
+  {"item":5,"met":true,"evidence":"limits data collection to name and email, lets users keep their email private"},
+  {"item":6,"met":true,"evidence":"NSCameraUsageDescription is just Camera... purpose strings that explain clearly"}],
+ "must_not":[
+  {"item":1,"hit":false,"evidence":"must also offer another login option... Sign in with Apple is the standard way"},
+  {"item":2,"hit":false,"evidence":"PHPickerViewController, which needs neither camera nor photo-library permission"},
+  {"item":3,"hit":false,"evidence":"guidelines linked to developer.apple.com; 'Check the linked pages for the current text'"}],
+ "pass":true,
+ "unsupported_claims":["'Email and password with your own account doesn't count as that option' stated flatly; the 4.8 exemptions are not discussed","'one-word strings are a common rejection reason' has no source"]},
+ {"eval":"e016","answer":"A","must":[
+  {"item":1,"met":true,"evidence":"#1 Critical: rules allow anyone to read and write everything; per-uid rules; curl and emulator tests"},
+  {"item":2,"met":true,"evidence":"On 31 Dec 2026, every read and write is denied and the app stops working"},
+  {"item":3,"met":true,"evidence":"isPro() reads a boolean from SharedPreferences... anyone can download lessons_pro with curl"},
+  {"item":4,"met":true,"evidence":"both read used == false... callable Cloud Function... Firestore transaction"},
+  {"item":5,"met":true,"evidence":"https://help.example.com.<attacker domain>/steal... uri.host == \"help.example.com\""}],
+ "must_not":[
+  {"item":1,"hit":false,"evidence":"API key rated Medium: 'This is normal... they aren't secrets'"},
+  {"item":2,"hit":false,"evidence":"only a read-only curl GET is proposed; the race test runs in the emulator"},
+  {"item":3,"hit":false,"evidence":"no root detection proposed"}],
+ "pass":true,
+ "unsupported_claims":[]},
+ {"eval":"e016","answer":"B","must":[
+  {"item":1,"met":true,"evidence":"F1 [Critical] Firestore is open... per-user rules; curl without logging in; Emulator Suite"},
+  {"item":2,"met":true,"evidence":"F5: from 31 December 2026 00:00 UTC every read and write is denied"},
+  {"item":3,"met":true,"evidence":"isPro() reads a local SharedPreferences boolean... no server verification... lessons_pro protected only by if"},
+  {"item":4,"met":true,"evidence":"N parallel calls... credits are added N times... runTransaction in a callable Cloud Function"},
+  {"item":5,"met":true,"evidence":"string prefix, not a host check... help.example.com@<attacker domain>; parsed uri.host check"}],
+ "must_not":[
+  {"item":1,"hit":false,"evidence":"F6 [Info]: 'A Firebase AIza... key is not a secret'"},
+  {"item":2,"hit":false,"evidence":"'these are writes and I need your OK before running them'"},
+  {"item":3,"hit":false,"evidence":"no root detection proposed"}],
+ "pass":true,
+ "unsupported_claims":["Says to restrict the Android API key to the 'SHA-256 signing certificate'; Google Cloud Android key restrictions use the SHA-1 fingerprint","Summary says rules lock everyone out 'on 1 January 2027', but F5 correctly says 31 Dec 2026 00:00 UTC (inconsistent)"]},
+ {"eval":"e017","answer":"A","must":[
+  {"item":1,"met":true,"evidence":"4.2.0 shipped on 03-06 and stayed stable for three days... both drop together"},
+  {"item":2,"met":true,"evidence":"try! ... keyNotFound ... ProfileStore.swift:23; avatar is a required String"},
+  {"item":3,"met":true,"evidence":"Who is affected: users without a profile photo, on any app version"},
+  {"item":4,"met":false,"evidence":"Explains that the tests only covered avatar \"\". Never says the API change was not checked against the app; only a forward-looking recommendation"},
+  {"item":5,"met":true,"evidence":"decodeIfPresent ... ?? \"\"; try! is gone; test for key omitted"},
+  {"item":6,"met":true,"evidence":"ask the API team to send \"avatar\": \"\" again... App fix protects future builds only"}],
+ "must_not":[
+  {"item":1,"hit":false,"evidence":"avatar commit 'changed only how the avatar looks'"},
+  {"item":2,"hit":false,"evidence":"Rolling back to 4.1.0 would not fix it"}],
+ "pass":false,
+ "unsupported_claims":[]},
+ {"eval":"e017","answer":"B","must":[
+  {"item":1,"met":true,"evidence":"4.2.0 had been live since 2026-03-06 with no drop; 4.1.0 drops same day"},
+  {"item":2,"met":true,"evidence":"ProfileStore.swift:23 try! ... traps on DecodingError.keyNotFound(\"avatar\")... non-optional String"},
+  {"item":3,"met":true,"evidence":"Users whose profiles all have photos never hit it"},
+  {"item":4,"met":true,"evidence":"No test covers a missing or null key... backend change was not reviewed against the app's models"},
+  {"item":5,"met":true,"evidence":"decodeIfPresent ?? \"\"; Result instead of try!; testDecodesProfileWithAvatarKeyMissing"},
+  {"item":6,"met":true,"evidence":"Everyone on 4.1.0 and 4.2.0 keeps crashing... Send \"avatar\": \"\" again"}],
+ "must_not":[
+  {"item":1,"hit":false,"evidence":"ProfileHeader commit considered then ruled out: 'that commit is not the cause'"},
+  {"item":2,"hit":false,"evidence":"no rollback proposed"}],
+ "pass":true,
+ "unsupported_claims":["'The crash alert did fire (03-09)' does not appear to come from any provided evidence"]},
+ {"eval":"e018","answer":"A","must":[
+  {"item":1,"met":true,"evidence":"PromoBanner.bannerText() throws on every Home screen onResume... 100% of users (file named, code line quoted, no line number)"},
+  {"item":2,"met":true,"evidence":"one SHA-256 pin... no backup pin... expiration 2028-01-15... Add backup pins... Or remove pinning"},
+  {"item":3,"met":true,"evidence":"official: Google Play Console Help... checked 2026-11-17; targetSdk = 34"},
+  {"item":4,"met":true,"evidence":"chartkit archived... Plan: replace it with a maintained chart library (H1 2027)"},
+  {"item":5,"met":true,"evidence":"fixes until 30 Jun 2027... v4 requires minSdk 24... decide on dropping Android 6"},
+  {"item":6,"met":false,"evidence":"Timeline table has When/What/Severity only; no per-item source or Verified/Suspected status"}],
+ "must_not":[
+  {"item":1,"hit":true,"evidence":"'since 1 Nov 2025, updates targeting Android 15+ must support 16 KB page sizes' (no source, not marked unverified)"},
+  {"item":2,"hit":false,"evidence":"recommendations only, no code changed"}],
+ "pass":false,
+ "unsupported_claims":["16 KB page-size Play deadline stated as fact without a source"]},
+ {"eval":"e018","answer":"B","must":[
+  {"item":1,"met":true,"evidence":"PromoBanner.kt: PROMO_END = LocalDate.of(2026, 12, 31)... Home's onResume... every installed build (file path, no line number)"},
+  {"item":2,"met":true,"evidence":"one <pin>... expiration=2028-01-15... may issue a new key... add a backup pin"},
+  {"item":3,"met":true,"evidence":"developer.android.com/google/play/requirements/target-sdk, read on 2026-11-17"},
+  {"item":4,"met":true,"evidence":"Abandoned chart library... Replace or take ownership of chartkit (before 2027-06-30)"},
+  {"item":5,"met":true,"evidence":"Version 4 requires minSdk 24, and the app's minSdk is 23... decide whether to drop Android 6"},
+  {"item":6,"met":true,"evidence":"Future risk table (most urgent first) with When (source) and Status columns"}],
+ "must_not":[
+  {"item":1,"hit":false,"evidence":"Play rule quoted with official URL, read on 2026-11-17"},
+  {"item":2,"hit":false,"evidence":"no code changed"}],
+ "pass":true,
+ "unsupported_claims":[]}
+]

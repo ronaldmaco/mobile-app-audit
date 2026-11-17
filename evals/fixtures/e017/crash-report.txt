@@ -1,0 +1,11 @@
+Crash group 1 (symbolicated by the crash tool)
+Versions: 4.1.0 (410), 4.2.0 (420)   OS: iOS 18, iOS 26
+Exception: EXC_BREAKPOINT (SIGTRAP)
+Fatal error: 'try!' expression unexpectedly raised an error:
+Swift.DecodingError.keyNotFound(CodingKeys(stringValue: "avatar", intValue: nil),
+Swift.DecodingError.Context(codingPath: [], debugDescription: "No value associated with key avatar"))
+
+Thread 3 Crashed:
+0  libswiftCore.dylib   swift_unexpectedError
+1  App                  closure #1 in ProfileStore.loadProfile(id:completion:) (ProfileStore.swift:23)
+2  CFNetwork            __40-[__NSURLSessionLocal taskForClass:...]_block_invoke

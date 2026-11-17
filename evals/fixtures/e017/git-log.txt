@@ -1,0 +1,6 @@
+$ git log --oneline v4.1.0..v4.2.0
+c41 Release 4.2.0
+c40 ProfileHeader: round avatar corners and add placeholder colour
+c39 Settings: redesign notification section
+c38 Add dark mode app icons
+c37 Bump analytics SDK minor version

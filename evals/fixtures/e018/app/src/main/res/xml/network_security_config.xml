@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config>
+        <domain includeSubdomains="true">api.example.com</domain>
+        <pin-set expiration="2028-01-15">
+            <!-- SHA-256 of the current server certificate's public key -->
+            <pin digest="SHA-256">REPLACED_IN_FIXTURE_7rQ2</pin>
+        </pin-set>
+    </domain-config>
+</network-security-config>

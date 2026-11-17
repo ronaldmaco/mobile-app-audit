@@ -1,0 +1,5 @@
+{
+  "project_id": "<project id>",
+  "api_key": "<client API key, format AIza...>",
+  "storage_bucket": "<bucket>"
+}

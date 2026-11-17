@@ -7,6 +7,7 @@ A small test set built from the real cases in `cases/`. Run it on every release 
 - `triggers.json`: requests that should and should not load the skill, to check its description after any change to it.
 - `fixtures/`: small, anonymised code and data that reproduce each case. They do not compile on their own; they are enough for a code-reading audit.
 - `e008` has no case behind it on purpose: the right answer is "not reproduced, still Suspected". It checks that the skill does not invent a cause.
+- `e015`-`e018` (2.6.0) have no real case behind them: they test the new store, security, autopsy and future-risk references with fixtures written from scratch. They were written in the same session as those references, so they may favour the skill; read their results with that in mind. `e016` and `e018` contain dates in late 2026 and 2027 and assume a run before 2026-12-31.
 
 ## How to run (any agent)
 1. Open a fresh session in an agent with the skill installed (Claude Code, or any agent that reads `SKILL.md`).

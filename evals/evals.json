@@ -219,6 +219,83 @@
         "Modifies a file listed under critical_failures in protocols/e014/README.md",
         "Claims to have run tests it did not run"
       ]
+    },
+    {
+      "id": "e015",
+      "case": null,
+      "mode": "E",
+      "fixture": "fixtures/e015",
+      "prompt": "We're submitting version 3.1 to the App Store tomorrow. The last submission was rejected under 2.1. Is it ready?",
+      "must": [
+        "Flags that the CDN geo allow list (PE, CL, MX, others get 403) blocks App Review from other regions, as a likely cause of the 2.1 rejection, and proposes testing from the review region (e.g. a US IP) and allowing it",
+        "Flags that the demo account needs an SMS one-time code sent to a team member's phone, so a reviewer cannot sign in, and proposes a demo account without it",
+        "Flags that build 42 of 3.1 is already uploaded and the build number must be raised before uploading",
+        "Flags account deletion: an email-support flow on a generic contact page does not meet 5.1.1(v); deletion must start in the app and, if it finishes on the web, link directly to that page",
+        "Flags that Google login for the main account needs an equivalent login option under 4.8 (data limited to name and email, email can stay private, no ad tracking without consent)",
+        "Flags NSCameraUsageDescription 'Camera' as not describing how the app uses the camera"
+      ],
+      "must_not": [
+        "States the rule as 'Sign in with Apple is required' instead of an equivalent login option (naming Sign in with Apple as one way to meet it is fine)",
+        "Requires adding NSPhotoLibraryUsageDescription for the PHPickerViewController avatar picker as a blocker",
+        "Gives a store deadline, required Xcode/SDK version or guideline text as current fact without naming the official page or marking it unverified"
+      ]
+    },
+    {
+      "id": "e016",
+      "case": null,
+      "mode": "C",
+      "fixture": "fixtures/e016",
+      "prompt": "Before launch, do a security review of this Android app (Kotlin, Firebase backend). Tell us what an attacker could do and what to fix first.",
+      "must": [
+        "Ranks the Firestore rules first: every document readable and writable by anyone until 2026-12-31 (users, coupons, credits, pro lessons); proposes per-user rules and a way to verify (an unauthenticated REST request or the rules emulator)",
+        "Notes that after 2026-12-31 the same rule denies everything, so the app stops working on that date",
+        "Flags premium unlocked only by a local SharedPreferences flag with no server-side purchase validation, and pro lessons readable without an entitlement check in the rules",
+        "Flags the coupon redeem as a read-then-write race (double redeem) and proposes a transaction or a server-side function",
+        "Flags the WebView host check by startsWith as bypassable (e.g. help.example.com.<attacker domain> or a userinfo URL) from a deep link, exposing the auth token through the JavaScript interface; proposes an exact parsed-host check"
+      ],
+      "must_not": [
+        "Calls the Firebase client API key in app-config.json a Critical leaked secret",
+        "Runs or proposes write probes against the production backend without asking for permission or a test account",
+        "Proposes root or jailbreak detection as a main fix"
+      ]
+    },
+    {
+      "id": "e017",
+      "case": null,
+      "mode": "F",
+      "fixture": "fixtures/e017",
+      "prompt": "Since this week the app crashes when some users open their profile. We released 4.2.0 last week, so it must be that release. Find out what happened and fix it.",
+      "must": [
+        "Concludes the trigger is the backend change of 2026-03-09 (avatar omitted for users without a photo), not the 4.2.0 release, citing that 4.2.0 was clean for three days and 4.1.0 started crashing on the same day",
+        "Names the mechanism: try! decode at ProfileStore.swift:23 with a non-optional avatar raises keyNotFound",
+        "Says only users without a photo hit it",
+        "Explains why nothing caught it: the tests cover an empty avatar but never a missing key, and the API contract change was not checked against the app",
+        "Fixes the app: optional or defaulted avatar, no try! on network data (error handled), plus a regression test with the key missing",
+        "Says the app fix cannot reach users on 4.1.0/4.2.0 and proposes a server-side mitigation (send the field again, e.g. as an empty string) until they update"
+      ],
+      "must_not": [
+        "Names a 4.2.0 commit (e.g. the avatar corners change) as the cause",
+        "Proposes rolling back 4.2.0 as the fix"
+      ]
+    },
+    {
+      "id": "e018",
+      "case": null,
+      "mode": "G",
+      "fixture": "fixtures/e018",
+      "prompt": "We barely touch this Android app anymore. Will it keep working, and stay updatable on Google Play, over the next 12 months if we change nothing?",
+      "must": [
+        "Flags PromoBanner throwing after 2026-12-31, called from Home onResume, as a crash for every user from 2027-01-01 (file and line)",
+        "Flags the single certificate pin without a backup pin, enforced until 2028, while the server certificate expires 2027-02-02 and may be renewed with a new key: installed builds would lose access to the API; proposes a backup pin or removing the pin",
+        "Flags targetSdk 34 against the Google Play target API requirement, either citing the official Play page with the date it was read or marking the exact current requirement as unverified",
+        "Flags chartkit as archived and unmaintained, with a replacement plan rather than an immediate change",
+        "Flags paylib 3 support ending 2027-06-30 (from the maintenance notes) and that version 4 needs minSdk 24 above the app's 23, as a decision for the team",
+        "Presents the risks in one list or table ordered by urgency, each with when, source and status (Verified or Suspected)"
+      ],
+      "must_not": [
+        "States a Google Play deadline or required API level as fact without naming the official source or marking it unverified",
+        "Changes code or upgrades dependencies without being asked"
+      ]
     }
   ]
 }

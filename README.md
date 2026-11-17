@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.6.0-22c55e" alt="Version 2.6.0"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.6.1-22c55e" alt="Version 2.6.1"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/iOS%20%C2%B7%20Android%20%C2%B7%20Flutter%20%C2%B7%20React%20Native-supported-0ea5e9" alt="iOS, Android, Flutter, React Native">
   <a href="#-compatibility"><img src="https://img.shields.io/badge/Agent%20Skills%20format-validated%20on%20Claude%20Code-d97757" alt="Agent Skills format, validated on Claude Code"></a>
@@ -156,6 +156,8 @@ The cases are also an **[eval set](evals/)**: each one has a prompt, a small fix
 
 **Store, security, autopsy and future risk (2.6.0):** e015-e018 pass 4/4 with the skill and 2/4 without (1 run each, blind judge). Store and security pass in both conditions; the differences are method (why a crash was missed, a dated source for every future risk). These evals were written together with the references they test, so they favour the skill. [Details and limits](evals/results/2.6.0/claude-code/summary.md).
 
+**Next to other mobile skills (2.6.0, 2.6.1):** installed with the mobile-mcp and agent-device skills (`mobile-automation`, `agent-device`, `dogfood`), 3 runs per prompt, capped at 4 turns: the skill loaded on 20/24 bug reports and audits and on 0/12 device-only actions, and the neighbours never took a bug report from it. Loss: a request for a security review loaded no skill at all (0/3). After the description named a security review (2.6.1), a second run loaded on 24/24 bug reports and audits, 9/9 new security-review prompts and 0/21 requests it should not take (device-only actions, general security questions); the fixed prompt overlaps the change, the new ones were written by the maintainer after it. Requests that say dogfood, exploratory QA or bug hunt went to `dogfood` (9/9 in both runs). It measures which skill loads, not answer quality. [Details and limits](evals/results/2.6.0/claude-code/coinstall.md).
+
 **How we report results.** Every number above links to a results file with its runs, model and limits. Results where the skill adds nothing (Android 5/5 with and without it, e014 at the ceiling) are published like the rest, and where an eval favours the skill, the results say so. If a claim here says more than its data, please [open an issue](https://github.com/ronaldmaco/mobile-app-audit/issues).
 
 ## 🔌 Compatibility
@@ -185,7 +187,8 @@ The skill only needs file reading and a shell; device tools are optional. See [d
 - [x] **2.4 Android:** five real Android cases (Kotlin, legacy Java), Kotlin evals, sibling check method across platforms
 - [x] **2.5 Trigger:** the skill loads for reported mobile bugs, trigger eval in `evals/triggers.json`, e014 eval hardened and piloted (ceiling reached; kept as a regression check)
 - [x] **2.6 Audit depth:** autopsy and future-risk modes, first-time user sweep, build health gates, measured performance, a security reference and store rules confirmed on the official pages (each check with a way to verify it), evals e015-e018, a demo GIF from a real simulator run
-- [ ] **2.6.1 Measured against neighbours:** does the skill load next to mobile-mcp and agent-device skills (test ready, not run yet), and a head-to-head with other mobile QA skills, published even if we lose
+- [x] **2.6.1 Next to neighbours:** which skill loads when mobile-mcp and agent-device skills are installed too ([results](evals/results/2.6.0/claude-code/coinstall.md)); a security review request loaded no skill, fixed in the description and re-measured; license and version in the skill's own metadata
+- [ ] **2.6.2 Head-to-head:** against other mobile QA skills on the same tasks, published even if we lose
 - [ ] **2.7 Flows:** OTP and 2FA, social login and passkeys, magic links, payments and subscriptions, onboarding and permissions, offline sync, uploads, forced update
 - [ ] **2.8 More stacks:** Objective-C, Kotlin Multiplatform, .NET MAUI, Ionic/Capacitor, CocoaPods/SPM, watchOS/Wear OS, Bluetooth; harder Android evals
 - [ ] **2.9 Wider cases:** apps the maintainer did not build, reviewed with the owner's permission (open-source apps, or under a client agreement); each finding is rewritten as an anonymised case that states its origin

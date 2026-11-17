@@ -2,6 +2,12 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## 2.6.1 - 2026-11-17
+Measured next to other mobile skills, and one trigger fix found by that measurement.
+- `SKILL.md` frontmatter declares `license: MIT` and `metadata.version` (with `author`), so catalogs that read only the skill folder show the license and version. Skill behaviour unchanged.
+- Co-install activation probe (`evals/results/2.6.0/claude-code/coinstall.md`): 2.6.0 next to the mobile-mcp and agent-device skills, Claude Code, Opus 5.5, 15 prompts x 3 runs, 4-turn cap. Loaded on 20/24 bug reports and audits, 0/12 device-only actions; no collisions with the neighbours. Loss: a security review request loaded no skill (0/3). Dogfood-style requests went to `dogfood` (9/9). The head-to-head with other mobile QA skills is not run; it moves to 2.6.2.
+- Skill description: also loads for a security review of an app or one of its flows (the probe's 0/3 miss). Second probe run (63 sessions, same caps): 24/24 bug reports and audits including the missed one, 9/9 on three new security-review prompts, 0/12 device-only actions and 0/9 on three general security questions. The new prompts were written by the maintainer after the miss and the fix, before any run with them.
+
 ## 2.6.0 - 2026-11-17
 Audit depth. The skill's description is unchanged, so the 2.5.0 trigger results still describe when it loads; requests that only mention a postmortem or next year's risks were not measured.
 - **Mode F, autopsy** (`references/autopsy.md`): for failures already in production. Exact build (dSYM UUID, `mapping.txt`), symbolication per stack, timeline with `git log -S`, `git blame` and `git bisect run`, changes outside the code (backend, config, OS, certificates), cause vs trigger vs contributing factors, why nothing caught it, and a report block.

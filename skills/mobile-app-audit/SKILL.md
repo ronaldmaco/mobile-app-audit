@@ -1,6 +1,10 @@
 ---
 name: mobile-app-audit
-description: Audit, QA, debug and bug-verify a mobile app (iOS, Android, Flutter, React Native, any stack) with evidence - code review, device testing, backend/CDN, security, performance, accessibility, store readiness - and fix without changing the design. Use whenever users, testers or reviewers report that something in a mobile app is wrong, wrong only for some users, intermittent, or still failing after a fix (for example payments, checkout, login, screens that never load), to find the root cause and fix it; also to audit, test or validate an app, to confirm a reported bug or a claimed fix, before store submission or after a rejection.
+description: Audit, QA, debug and bug-verify a mobile app (iOS, Android, Flutter, React Native, any stack) with evidence - code review, device testing, backend/CDN, security, performance, accessibility, store readiness - and fix without changing the design. Use whenever users, testers or reviewers report that something in a mobile app is wrong, wrong only for some users, intermittent, or still failing after a fix (for example payments, checkout, login, screens that never load), to find the root cause and fix it; also to audit, test or validate an app, for a security review of an app or one of its flows, to confirm a reported bug or a claimed fix, before store submission or after a rejection.
+license: MIT
+metadata:
+  author: Ronald Maco
+  version: "2.6.1"
 ---
 
 # Mobile App Audit
@@ -10,6 +14,8 @@ Goal: every screen and flow does what the user expects under real conditions (sl
 <!--
 Maintainer notes
 - Author: Ronald Maco (https://github.com/ronaldmaco)
+- v2.6.1 (2026-11-17): license and metadata in frontmatter; description also names a security review (co-install probe: a security review request loaded
+  no skill, 0/3). Second probe: 3/3 on it, 9/9 on 3 new security prompts, 0/21 should-not.
 - v2.6.0 (2026-11-17): modes F (autopsy) and G (future risk); references security.md, store.md (rules read
   on official pages), telemetry.md, autopsy.md, future-risk.md; build health gates, measured performance,
   refute pass, first-time user sweep. Evals e015-e018: 4/4 with, 2/4 without (1 run each; favour the skill).

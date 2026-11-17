@@ -38,7 +38,8 @@ Say which mode you use. Do not run a full audit when a targeted one answers the 
 | **G. Future risk** | "Will it still work next year?", before a big upgrade, yearly check | `references/future-risk.md` |
 
 References (read only the one you need, when you need it):
-- `references/checklist.md` - inventory, static checklist, security, performance, accessibility, stack notes.
+- `references/checklist.md` - inventory, build health gates, static checklist, performance, accessibility, stack notes.
+- `references/security.md` - ranked security checks (OWASP MASVS based), each with a static, device or request check.
 - `references/backend.md` - endpoint checks, CDN/WAF, catalog sweep, ground-truth oracle scripts.
 - `references/device-testing.md` - tools, environment preflight, step loop, conditions, scenario catalogue, first-time user sweep, pitfalls.
 - `references/store-and-telemetry.md` - App Store / Google Play rules, production crash data.

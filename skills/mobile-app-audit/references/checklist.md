@@ -96,16 +96,8 @@ Run the project's own checks before reading code. Record each command, its exit 
 - Event context is passed per call (parameters), never stored on shared enum constants or singletons.
 - Debug logging reduced in release builds.
 
-## Security (OWASP MASVS based)
-- **Storage:** tokens and secrets only in Keychain/Keystore; no sensitive data in logs, app switcher snapshots, backups, clipboard.
-- **Secrets in the bundle:** grep source and built app (`strings`, unzip IPA/APK). Server secrets are Critical.
-- **Network:** TLS only, no disabled certificate validation; pinning where warranted.
-- **Auth:** server enforces authorization per object (IDOR with a test account); rate limits; reset tokens expire.
-- **Platform:** exported components and deep links validate input; WebView bridges limited.
-- **Code:** release builds obfuscated where expected; debug flags off.
-- **Privacy:** permissions only when needed, purpose strings; data matches privacy manifest / Data safety.
-- **Consent:** every consent switch (analytics, ads, personalisation) is wired to every SDK it governs, reverts on a failed save, and logout resets SDK identities.
-- **Caches:** per-user caches live in a non-backed-up location (iOS `Caches`, Android `cacheDir`), never store write responses, and are cleared on logout.
+## Security
+Run `references/security.md`: ranked checks (backend rules, server-side entitlements, races, tokens, OAuth, WebViews, release flags, storage, deep links, secrets, TLS, crypto, biometrics, OTA, privacy and consent), each with how to verify it.
 
 ## Performance
 Measure, do not estimate. Compare with a baseline you recorded (previous build or release) instead of a fixed threshold. A metric you did not measure is a "not measured" row in the coverage table, never OK.

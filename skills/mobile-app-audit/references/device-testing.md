@@ -65,5 +65,21 @@ Build with the project's tooling; test the **release** configuration before ship
 - **Every detail screen:** from list, deep link and push; media plays or fails gracefully.
 - **Settings/account:** each row opens the right place, external links return, values match the server.
 - **Purchases:** buy, cancel, restore, expired subscription.
+- **Every modal and sheet:** closes while a request is in flight without a crash or a late update to the screen below.
+- **Every failed load:** has a retry that works without killing the app.
+- **Back, swipe back and process death:** keep what the user typed in a form (Android: `adb shell am kill <pkg>` while the app is in the background, then reopen it).
+
+## First-time user sweep (modes C and D, onboarding to first success)
+Run the path from first launch to the app's first real success (account created, first item saved, first purchase in test mode) as five users. Each one is a set of device conditions and a rule for acting; record every point where they get stuck, confused or lose input, with a screenshot.
+
+| User | Conditions | Acts like this |
+|---|---|---|
+| **Impatient** | Normal device and network | Taps the first obvious button, skips every text, gives up at the first error or wait over a few seconds without feedback. |
+| **Skeptic** | Normal | Opens privacy policy, terms, prices and permission prompts before signing up; every link must open and say what the app does with the data. A permission asked before it is needed, or a price not shown before paying, is a finding. |
+| **Small and slow** | Smallest supported phone (`xcrun simctl list devicetypes`; Android `adb shell wm size 720x1280` and reset with `wm size reset`), largest text (`xcrun simctl ui booted content_size accessibility-extra-extra-extra-large`; `adb shell settings put system font_scale 2.0`), slow network (Network Link Conditioner; `adb emu network speed edge`, `adb emu network delay gprs`) | Normal use. Clipped text, hidden buttons, the keyboard covering inputs, spinners with no end and no retry are findings. |
+| **Literal reader** | Another language and a pseudolocale (iOS: `xcrun simctl launch booted <bundle> -AppleLanguages "(de)"` or `-NSDoubleLocalizedStrings YES`; Android: `adb shell cmd locale set-app-locales <pkg> --locales de-DE`, or `en-XA` / `ar-XB` when `pseudoLocalesEnabled` is on in the debug build) | Does only what the screen literally says; no guessing from icons or habits. Untranslated strings, truncated labels, icon-only actions and unclear errors are findings. |
+| **Breaker** | Normal; a test account and a test backend only | Double taps every button, pastes long text, emoji and symbols into every field, goes back or swipes back mid-flow, rotates, kills the app during a save. Android: `adb shell monkey -p <pkg> -s <seed> --throttle 200 -v 500` (record the seed so it can be replayed). Duplicate writes, lost input, crashes and stuck loading are findings. |
+
+Merge the results: one finding per cause (not per user), with the users that hit it listed. Order by severity (`references/report.md`); within the same severity, the issue more users hit goes first. After the fixes, run the same five users again on the new build and attach before/after evidence; an issue is fixed only when none of them hit it.
 
 Save evidence in the work folder with case ids in file names.

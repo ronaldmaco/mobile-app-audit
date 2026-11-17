@@ -32,15 +32,19 @@ Say which mode you use. Do not run a full audit when a targeted one answers the 
 | **A. Bug verification** | A user reported a bug, sent videos/screenshots, or a fix "did not work" | Section 2 (all of it) |
 | **B. Fix verification** | Someone says a bug is fixed | 2.3, 2.5 to 2.10 |
 | **C. Targeted audit** | One area (login, filters, payments, push...) | Inventory of that area + `references/checklist.md` for it + 2.4 impact map per finding |
-| **D. Full audit** | Before a release, new codebase, "make sure the app has no bugs" | Everything, in order |
+| **D. Full audit** | Before a release, new codebase, "make sure the app has no bugs" | Everything, in order, including the first-time user sweep (`references/device-testing.md`) and mode G |
 | **E. Store readiness** | Before submission or after a rejection | `references/store-and-telemetry.md` + backend checks from the review region |
+| **F. Autopsy** | Something already failed in production (crash, ANR, incident, broken release): how, when, why it was missed | `references/autopsy.md`, then 2.4 to 2.10 for the fix |
+| **G. Future risk** | "Will it still work next year?", before a big upgrade, yearly check | `references/future-risk.md` |
 
 References (read only the one you need, when you need it):
 - `references/checklist.md` - inventory, static checklist, security, performance, accessibility, stack notes.
 - `references/backend.md` - endpoint checks, CDN/WAF, catalog sweep, ground-truth oracle scripts.
-- `references/device-testing.md` - tools, environment preflight, step loop, conditions, scenario catalogue, pitfalls.
+- `references/device-testing.md` - tools, environment preflight, step loop, conditions, scenario catalogue, first-time user sweep, pitfalls.
 - `references/store-and-telemetry.md` - App Store / Google Play rules, production crash data.
 - `references/report.md` - finding and report format, audit log.
+- `references/autopsy.md` - production failure postmortem: exact build, symbolication, timeline, cause, why it was missed.
+- `references/future-risk.md` - what breaks within a year with no code change: store minimums, deprecations, abandoned dependencies, expiring certificates; dated official sources only.
 
 ## 1. Principles
 

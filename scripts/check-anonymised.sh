@@ -28,6 +28,8 @@ check_text() { # $1 = label, stdin = text
     while IFS= read -r hit; do
       [ -z "$hit" ] && continue
       echo "$hit" | grep -qE "$ALLOW_URL|$ALLOW_EMAIL" && continue
+      # Xcode's own product type identifier, required in every .pbxproj.
+      [[ "$label" == *.pbxproj ]] && [[ "$hit" =~ ^[0-9]+:com\.apple\.product$ ]] && continue
       say "$label: generic match: $hit"
     done < <(printf '%s' "$text" | grep -noE "$re" || true)
   done

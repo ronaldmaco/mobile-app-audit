@@ -1,0 +1,16 @@
+diff --git a/EventFinder/ContentView.swift b/EventFinder/ContentView.swift
+index fe60603..dc86b76 100644
+--- a/EventFinder/ContentView.swift
++++ b/EventFinder/ContentView.swift
+@@ -4,8 +4,9 @@ struct ContentView: View {
+     @State private var favourites: Set<Venue> = []
+ 
+     private var events: [Event] {
+-        // Skip invalid venue ids before calling the API.
+-        let ids = favourites.map(\.id).filter { $0 > 0 }
++        // Keep every venue the user chose: id 0 is a real venue, and an empty
++        // list would make the API return events at every venue.
++        let ids = favourites.map(\.id)
+         return EventsAPI.events(venueIDs: ids)
+     }
+ 

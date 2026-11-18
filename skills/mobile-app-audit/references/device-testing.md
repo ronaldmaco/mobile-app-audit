@@ -57,6 +57,7 @@ Build with the project's tooling; test the **release** configuration before ship
 | Dark mode, large text, rotation, tablet | appearance, font scale (agent-device `settings text-size accessibility-extra-large`), rotate, iPad |
 | Oldest supported OS | simulator/emulator with the minimum OS |
 | Background then resume after minutes | token expiry, sockets |
+| Background while a request is in flight, then resume (after seconds and after minutes) | Slow the network so the request stays pending, start the action, leave the app at once (Android `adb shell input keyevent KEYCODE_HOME`; iOS `xcrun simctl launch booted com.apple.Preferences`; or the device tool's home button), then reopen it from its icon. Pass: the spinner ends, the screen matches the oracle, a lost request is retried or reported, a write happened once (check the server), no crash or late update from a callback on a closed screen |
 
 ## Minimum scenario catalogue
 - **Access:** sign up, log in (valid, wrong password, unconfirmed), forgot/reset (cold and warm link), log out, delete account, session survives kill and reboot.

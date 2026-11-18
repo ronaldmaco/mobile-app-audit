@@ -2,6 +2,9 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## Unreleased
+- Device condition in `references/device-testing.md`: background while a request is in flight, then resume, with the commands and what passes (spinner ends, screen matches the oracle, a write happens once, no late update from a closed screen). Suggested in a public reply to the launch post. Not covered by an eval yet.
+
 ## 2.6.1 - 2026-11-17
 Measured next to other mobile skills, and one trigger fix found by that measurement.
 - `SKILL.md` frontmatter declares `license: MIT` and `metadata.version` (with `author`), so catalogs that read only the skill folder show the license and version. Skill behaviour unchanged.

@@ -204,7 +204,7 @@ Real cases make this auditor sharper. When the skill misses something, open a **
 
 ## 👤 Author
 
-Created and maintained by **[Ronald Maco](https://github.com/ronaldmaco)**. The cases and the judgement behind the method come from his audits of real mobile apps; he decides what goes in and reviews every change. [Claude Code](https://claude.com/claude-code) helps with drafting and automation, so commits it worked on carry a `Co-Authored-By` line.
+Created and maintained by **[Ronald Maco](https://github.com/ronaldmaco)**. The cases and the judgement behind the method come from his audits of real mobile apps; he decides what goes in and reviews every change. He uses [Claude Code](https://claude.com/claude-code) to automate parts of the work (running evals, checks, drafts) and as support.
 
 ## 📜 License
 

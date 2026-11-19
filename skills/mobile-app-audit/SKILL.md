@@ -4,7 +4,7 @@ description: Audit, QA, debug and bug-verify a mobile app (iOS, Android, Flutter
 license: MIT
 metadata:
   author: Ronald Maco
-  version: "2.6.1"
+  version: "2.6.2"
 ---
 
 # Mobile App Audit
@@ -14,6 +14,8 @@ Goal: every screen and flow does what the user expects under real conditions (sl
 <!--
 Maintainer notes
 - Author: Ronald Maco (https://github.com/ronaldmaco)
+- v2.6.2 (2026-11-18): device condition "background while a request is in flight" in device-testing.md;
+  head-to-head vs other mobile QA skills and no skill: no measurable advantage (evals/results/2.6.2).
 - v2.6.1 (2026-11-17): license and metadata in frontmatter; description also names a security review (co-install probe: a security review request loaded
   no skill, 0/3). Second probe: 3/3 on it, 9/9 on 3 new security prompts, 0/21 should-not.
 - v2.6.0 (2026-11-17): modes F (autopsy) and G (future risk); references security.md, store.md (rules read

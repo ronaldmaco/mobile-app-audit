@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.6.1-22c55e" alt="Version 2.6.1"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-2.6.2-22c55e" alt="Version 2.6.2"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/iOS%20%C2%B7%20Android%20%C2%B7%20Flutter%20%C2%B7%20React%20Native-supported-0ea5e9" alt="iOS, Android, Flutter, React Native">
   <a href="#-compatibility"><img src="https://img.shields.io/badge/Agent%20Skills%20format-validated%20on%20Claude%20Code-d97757" alt="Agent Skills format, validated on Claude Code"></a>
@@ -11,6 +11,7 @@
   <a href="evals/results/2.4.0/claude-code/summary.md"><img src="https://img.shields.io/badge/evals%20e009--e013%20%282.4.0%29-with%20skill%205%2F5%20%C2%B7%20without%205%2F5%20%C2%B7%201%20run%20each-8b5cf6" alt="Evals e009-e013 (2.4.0): with skill 5/5, without 5/5, 1 run per condition"></a>
   <a href="evals/results/2.5.0/claude-code/triggers.md"><img src="https://img.shields.io/badge/trigger%20eval%20%282.5.0%29-loads%208%2F8%20%C2%B7%20false%200%2F6%20%C2%B7%201%20run%20each-8b5cf6" alt="Trigger eval (2.5.0): loads on 8/8 requests it should, 0/6 it should not, 1 run each, prompts written with the description"></a>
   <a href="evals/results/2.6.0/claude-code/summary.md"><img src="https://img.shields.io/badge/evals%20e015--e018%20%282.6.0%29-with%20skill%204%2F4%20%C2%B7%20without%202%2F4%20%C2%B7%201%20run%20each-8b5cf6" alt="Evals e015-e018 (2.6.0): with skill 4/4, without 2/4, 1 run per condition, written with the references they test"></a>
+  <a href="evals/results/2.6.2/claude-code/summary.md"><img src="https://img.shields.io/badge/head--to--head%20%282.6.2%29-no%20measurable%20advantage%20%C2%B7%203%20runs%20each-64748b" alt="Head-to-head 2.6.2: no measurable advantage, 3 runs each"></a>
   <a href="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml"><img src="https://github.com/ronaldmaco/mobile-app-audit/actions/workflows/anonymised.yml/badge.svg" alt="Anonymisation check"></a>
 </p>
 
@@ -158,7 +159,9 @@ The cases are also an **[eval set](evals/)**: each one has a prompt, a small fix
 
 **Next to other mobile skills (2.6.0, 2.6.1):** installed with the mobile-mcp and agent-device skills (`mobile-automation`, `agent-device`, `dogfood`), 3 runs per prompt, capped at 4 turns: the skill loaded on 20/24 bug reports and audits and on 0/12 device-only actions, and the neighbours never took a bug report from it. Loss: a request for a security review loaded no skill at all (0/3). After the description named a security review (2.6.1), a second run loaded on 24/24 bug reports and audits, 9/9 new security-review prompts and 0/21 requests it should not take (device-only actions, general security questions); the fixed prompt overlaps the change, the new ones were written by the maintainer after it. Requests that say dogfood, exploratory QA or bug hunt went to `dogfood` (9/9 in both runs). It measures which skill loads, not answer quality. [Details and limits](evals/results/2.6.0/claude-code/coinstall.md).
 
-**How we report results.** Every number above links to a results file with its runs, model and limits. Results where the skill adds nothing (Android 5/5 with and without it, e014 at the ceiling) are published like the rest, and where an eval favours the skill, the results say so. If a claim here says more than its data, please [open an issue](https://github.com/ronaldmaco/mobile-app-audit/issues).
+**Against other mobile skills (2.6.2):** three tasks with fixtures written from scratch (verify and fix a reported bug, audit an unfinished Expo app, App Store readiness), run with this skill, the web-to-mobile-magic-plugin skills, appstore-review-skill (store task only) and no skill; 3 runs each, criteria hashed before the runs, blind judge. **No skill showed a measurable advantage:** without any skill the model passed every run of all three tasks, and the bug and store tasks hit the ceiling in every condition. One web-to-mobile run failed the unfinished-app task (2/3). The fixtures were written by the maintainer's agent. [Details and limits](evals/results/2.6.2/claude-code/summary.md).
+
+**How we report results.** Every number above links to a results file with its runs, model and limits. Results where the skill adds nothing (Android 5/5 with and without it, e014 at the ceiling, the 2.6.2 head-to-head) are published like the rest, and where an eval favours the skill, the results say so. If a claim here says more than its data, please [open an issue](https://github.com/ronaldmaco/mobile-app-audit/issues).
 
 ## 🔌 Compatibility
 
@@ -188,7 +191,7 @@ The skill only needs file reading and a shell; device tools are optional. See [d
 - [x] **2.5 Trigger:** the skill loads for reported mobile bugs, trigger eval in `evals/triggers.json`, e014 eval hardened and piloted (ceiling reached; kept as a regression check)
 - [x] **2.6 Audit depth:** autopsy and future-risk modes, first-time user sweep, build health gates, measured performance, a security reference and store rules confirmed on the official pages (each check with a way to verify it), evals e015-e018, a demo GIF from a real simulator run
 - [x] **2.6.1 Next to neighbours:** which skill loads when mobile-mcp and agent-device skills are installed too ([results](evals/results/2.6.0/claude-code/coinstall.md)); a security review request loaded no skill, fixed in the description and re-measured; license and version in the skill's own metadata
-- [ ] **2.6.2 Head-to-head:** against other mobile QA skills on the same tasks, published even if we lose
+- [x] **2.6.2 Head-to-head:** against other mobile QA skills and no skill on the same tasks; no measurable advantage with these fixtures ([results](evals/results/2.6.2/claude-code/summary.md))
 - [ ] **2.7 Flows:** OTP and 2FA, social login and passkeys, magic links, payments and subscriptions, onboarding and permissions, offline sync, uploads, forced update
 - [ ] **2.8 More stacks:** Objective-C, Kotlin Multiplatform, .NET MAUI, Ionic/Capacitor, CocoaPods/SPM, watchOS/Wear OS, Bluetooth; harder Android evals
 - [ ] **2.9 Wider cases:** apps the maintainer did not build, reviewed with the owner's permission (open-source apps, or under a client agreement); each finding is rewritten as an anonymised case that states its origin

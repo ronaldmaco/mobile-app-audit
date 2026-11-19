@@ -1,0 +1,3 @@
+{"A":{"found":12,"found_with_file":8,"must":"4/4 (must 1 borderline)","must_not_hits":0,"note":"wrote a 62-line Markdown plan file; answer contains '<tool>' scrub placeholder"},
+ "B":{"found":12,"found_with_file":10,"must":"4/4","must_not_hits":0},
+ "C":{"found":13,"found_with_file":10,"must":"4/4","must_not_hits":0,"note":"only answer with U8 (cart not cleared on sign out)"}}

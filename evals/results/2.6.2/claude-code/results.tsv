@@ -1,0 +1,31 @@
+batch	job	task	condition	rep	skills_loaded	cost_usd	turns	timed_out	hidden_tests	note
+20261118-184136	store-asr-1	store	asr	1	appstore-review	0.447988	7	NO	NA	success
+20261118-184136	unfinished-none-1	unfinished	none	1	none	0.174319	4	NO	NA	success
+20261118-184136	store-none-1	store	none	1	none	0.1533996	3	NO	NA	success
+20261118-184136	store-ours-1	store	ours	1	mobile-app-audit	0.2524418	5	NO	NA	success
+20261118-184136	store-w2m-1	store	w2m	1	none	0.160762	3	NO	NA	success
+20261118-184136	unfinished-ours-1	unfinished	ours	1	mobile-app-audit	0.27938820000000003	6	NO	NA	success
+20261118-184136	bug-none-1	bug	none	1	none	0.1827214	5	NO	bug2/2 sib2/2 guard3/3 visible3/3 vis_removed0 tests_added0	success
+20261118-184136	bug-ours-1	bug	ours	1	mobile-app-audit	0.24183980000000002	8	NO	bug2/2 sib2/2 guard3/3 visible3/3 vis_removed0 tests_added0	success
+20261118-184136	unfinished-w2m-1	unfinished	w2m	1	mobile-app-audit	0.23609639999999998	6	NO	NA	success
+20261118-184136	bug-w2m-1	bug	w2m	1	none	0.19956400000000002	7	NO	bug2/2 sib2/2 guard3/3 visible3/3 vis_removed0 tests_added0	success
+20261118-190345	bug-ours-2	bug	ours	2	mobile-app-audit	0.2770916	9	NO	bug2/2 sib2/2 guard3/3 visible3/3 vis_removed0 tests_added0	success
+20261118-190345	store-none-2	store	none	2	none	0.1509472	3	NO	NA	success
+20261118-190345	unfinished-ours-2	unfinished	ours	2	mobile-app-audit	0.2837732	7	NO	NA	success
+20261118-190345	store-asr-2	store	asr	2	appstore-review	0.30275979999999997	7	NO	NA	success
+20261118-190345	unfinished-none-2	unfinished	none	2	none	0.1447902	3	NO	NA	success
+20261118-190345	unfinished-w2m-2	unfinished	w2m	2	mobile-app-audit	0.2644518	7	NO	NA	success
+20261118-190345	store-ours-2	store	ours	2	mobile-app-audit	0.2552624	5	NO	NA	success
+20261118-190345	store-w2m-2	store	w2m	2	none	0.15977099999999997	3	NO	NA	success
+20261118-190345	bug-none-2	bug	none	2	none	0.1900074	6	NO	bug2/2 sib2/2 guard3/3 visible3/3 vis_removed0 tests_added0	success
+20261118-190345	bug-w2m-2	bug	w2m	2	none	0.17610639999999997	5	NO	bug2/2 sib2/2 guard3/3 visible3/3 vis_removed0 tests_added0	success
+20261118-191602	unfinished-ours-3	unfinished	ours	3	mobile-app-audit	0.253579	6	NO	NA	success
+20261118-191602	unfinished-w2m-3	unfinished	w2m	3	mobile-app-audit	0.23327140000000002	7	NO	NA	success
+20261118-191602	store-ours-3	store	ours	3	mobile-app-audit	0.2492266	5	NO	NA	success
+20261118-191602	bug-none-3	bug	none	3	none	0.16934000000000002	6	NO	bug2/2 sib2/2 guard3/3 visible3/3 vis_removed0 tests_added0	success
+20261118-191602	bug-ours-3	bug	ours	3	mobile-app-audit	0.3116324	10	NO	bug2/2 sib2/2 guard3/3 visible3/3 vis_removed0 tests_added0	success
+20261118-191602	store-w2m-3	store	w2m	3	none	0.16528299999999999	3	NO	NA	success
+20261118-191602	unfinished-none-3	unfinished	none	3	none	0.16670040000000003	4	NO	NA	success
+20261118-191602	store-none-3	store	none	3	none	0.1478542	3	NO	NA	success
+20261118-191602	bug-w2m-3	bug	w2m	3	none	0.1903394	6	NO	bug2/2 sib2/2 guard3/3 visible3/3 vis_removed0 tests_added0	success
+20261118-191602	store-asr-3	store	asr	3	appstore-review	0.29965640000000004	7	NO	NA	success

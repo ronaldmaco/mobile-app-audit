@@ -1,0 +1,12 @@
+{
+ "bug-A": "bug-ours-1",
+ "bug-B": "bug-none-1",
+ "bug-C": "bug-w2m-1",
+ "unfinished-A": "unfinished-w2m-1",
+ "unfinished-B": "unfinished-none-1",
+ "unfinished-C": "unfinished-ours-1",
+ "store-A": "store-none-1",
+ "store-B": "store-ours-1",
+ "store-C": "store-w2m-1",
+ "store-D": "store-asr-1"
+}

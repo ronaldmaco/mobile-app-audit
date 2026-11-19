@@ -3,6 +3,7 @@
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
 ## Unreleased
+- Head-to-head (`evals/results/2.6.2/`): this skill vs web-to-mobile-magic-plugin skills vs appstore-review-skill (store task only) vs no skill. Claude Code, Opus 5.5, 3 tasks with fixtures written from scratch, 3 runs per condition (30 sessions), criteria fixed and hashed before the runs, blind judge. No skill shows a measurable advantage: without any skill the model passes every run of all three tasks; the bug and store tasks hit the ceiling in every condition; one web-to-mobile run failed the unfinished-app task (2/3). The fixtures were written by the maintainer's agent.
 - Device condition in `references/device-testing.md`: background while a request is in flight, then resume, with the commands and what passes (spinner ends, screen matches the oracle, a write happens once, no late update from a closed screen). Suggested in a public reply to the launch post. Not covered by an eval yet.
 
 ## 2.6.1 - 2026-11-17

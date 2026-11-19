@@ -1,0 +1,10 @@
+g1_sameUserAgainAfterLogout	pass
+g2_cacheStillServesWithinSession	pass
+g3_searchesKeptWithinSession	pass
+h1_favoritesAfterExpiryBelongToNewUser	pass
+h2_searchesClearedAfterExpiry	pass
+h3_profileAfterLogoutBelongsToNewUser	pass
+h4_profileAfterExpiryBelongsToNewUser	pass
+loginLoadsOwnFavorites	pass
+switchingAccountsAfterLogoutShowsNewFavorites	pass
+wrongPasswordFails	pass

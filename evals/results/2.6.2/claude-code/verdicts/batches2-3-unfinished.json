@@ -1,0 +1,6 @@
+{"A":{"found":12,"found_with_file":6,"must_failed":["1"],"must_not_hits":0,"note":"wrote 52-line Markdown report; '40% done' unsupported"},
+ "B":{"found":12,"found_with_file":11,"must_failed":[],"must_not_hits":0},
+ "C":{"found":13,"found_with_file":10,"must_failed":[],"must_not_hits":0,"note":"only answer with U8"},
+ "D":{"found":12,"found_with_file":9,"must_failed":[],"must_not_hits":0,"note":"wrote 66-line Markdown report"},
+ "E":{"found":12,"found_with_file":10,"must_failed":[],"must_not_hits":0},
+ "F":{"found":12,"found_with_file":10,"must_failed":[],"must_not_hits":0}}

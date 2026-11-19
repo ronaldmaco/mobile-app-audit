@@ -1,0 +1,1 @@
+{"A":{"must":{"1":true,"2":true,"3":true,"5":true,"6":true},"must_not":{"1":false,"2":false}},"B":{"must":{"1":true,"2":true,"3":true,"5":true,"6":true},"must_not":{"1":false,"2":false}},"C":{"must":{"1":true,"2":true,"3":true,"5":true,"6":true},"must_not":{"1":false,"2":false},"note":"C stated test pass without count or command"}}

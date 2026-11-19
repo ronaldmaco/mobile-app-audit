@@ -1,0 +1,4 @@
+web-to-mobile-magic-plugin suntay44/web-to-mobile-magic-plugin e6eb78082b408f20aed8213326d711b94c181cc4 MIT
+appstore-review-skill devsemih/appstore-review-skill 57948c1c2045678e5a571ea03a39030bc7dc184f MIT
+mobile-app-audit repo 8129b1174ddd1f2dcaea6cd825acd14d66145445
+fetched 2026-11-18

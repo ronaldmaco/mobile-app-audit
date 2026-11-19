@@ -1,0 +1,22 @@
+{
+ "bug-A": "20261118-190345/bug-w2m-2",
+ "bug-B": "20261118-191602/bug-w2m-3",
+ "bug-C": "20261118-190345/bug-none-2",
+ "bug-D": "20261118-190345/bug-ours-2",
+ "bug-E": "20261118-191602/bug-ours-3",
+ "bug-F": "20261118-191602/bug-none-3",
+ "unfinished-A": "20261118-191602/unfinished-w2m-3",
+ "unfinished-B": "20261118-190345/unfinished-ours-2",
+ "unfinished-C": "20261118-190345/unfinished-none-2",
+ "unfinished-D": "20261118-190345/unfinished-w2m-2",
+ "unfinished-E": "20261118-191602/unfinished-none-3",
+ "unfinished-F": "20261118-191602/unfinished-ours-3",
+ "store-A": "20261118-190345/store-w2m-2",
+ "store-B": "20261118-191602/store-asr-3",
+ "store-C": "20261118-191602/store-w2m-3",
+ "store-D": "20261118-190345/store-ours-2",
+ "store-E": "20261118-190345/store-none-2",
+ "store-F": "20261118-191602/store-ours-3",
+ "store-G": "20261118-191602/store-none-3",
+ "store-H": "20261118-190345/store-asr-2"
+}

@@ -1,0 +1,1 @@
+Some users say that after signing in with a different account, the Home tab shows the previous person's favourite songs. It doesn't happen every time. Find out why and fix it.

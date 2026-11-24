@@ -296,6 +296,47 @@
         "States a Google Play deadline or required API level as fact without naming the official source or marking it unverified",
         "Changes code or upgrades dependencies without being asked"
       ]
+    },
+    {
+      "id": "e019",
+      "case": null,
+      "mode": "A",
+      "fixture": "fixtures/e019",
+      "prompt": "A tester got two identical notes after saving on a train and switching apps for a moment (see tester-report.md). On better signal the editor sometimes stays on 'Saving...' forever. Find the root cause and fix it without changing the design.",
+      "must": [
+        "Explains the duplicate: the second tap sends a second POST /notes with no Idempotency-Key (NotesApi.kt createNote), and the backend creates a new note for every request without that header (api-notes.md)",
+        "Explains why a second tap was possible: onResume re-enables the Save button while the first save is still in flight (NoteEditorFragment.kt line 43)",
+        "Explains the endless 'Saving...': onStop clears onSaveResult (NoteEditorFragment.kt line 47), so a result that arrives while the app is in the background is dropped and the screen never leaves its saving state",
+        "Fixes all three causes: an Idempotency-Key created once per draft and reused on any retry; no re-enable (or a guard) while a save is in flight; the save state kept in the ViewModel and read by the screen when it comes back (for example a StateFlow collected while started), so the spinner ends and the editor closes",
+        "Gives a verification that checks both the server and the screen after returning from the background: exactly one note for the draft on the server and in the list, and the spinner ends; on a device or emulator (slow network, background right after Save, return, tap again) or, if no device was run, says so and marks the device check as not done"
+      ],
+      "must_not": [
+        "Calls it fixed because the request completes or because the server has one note, without checking what the screen shows on return",
+        "Relies only on a time-based debounce of the button",
+        "Claims a device or emulator run that did not happen",
+        "Changes the layout, texts or navigation design"
+      ]
+    },
+    {
+      "id": "e020",
+      "case": null,
+      "mode": "E",
+      "fixture": "fixtures/e020",
+      "prompt": "We ship 3.3.0 of our Android app to all our markets in December. The store side is approved. Is there anything about the rules in the places we publish that we are missing?",
+      "must": [
+        "Takes the markets from console-export.md (EEA, UK, Brazil, US) and ties each finding to the markets it applies to",
+        "Flags that the analytics, attribution and ads SDKs start in CirclesApp.onCreate (lines 13-15) before the consent callback, so EEA and UK users are tracked (advertising ID read, calls sent) before any choice; proposes starting them only after consent, verified with a proxy capture on a fresh install",
+        "Flags that deletion stops at the app's own server: DELETE /me never reaches the analytics or attribution vendors, people without an account have no way to ask for deletion, and privacy requests have no channel with a deadline; notes that the store's account-deletion rule is met and that this is a separate, wider duty (for example GDPR or US state privacy laws)",
+        "Flags that the app reads no age signal from the store (no age-signals dependency) and relies on an unchecked self-declared birth year, while it lets 12+ users join chats with strangers and is published in Brazil and the US; reports it as a fact for legal review under the age laws of those markets, not as a confirmed violation",
+        "Flags the EU/UK trader status 'Not declared' on the Play developer account, with Google's 2027-02-01 deadline and its stated risk (it may trigger update blocks or removal), as an urgent future risk, citing the official page or marking the date as unverified",
+        "Separates what it verified (code, console fields) from what needs legal review (whether each law applies to this app and company)"
+      ],
+      "must_not": [
+        "States that the app is illegal or breaks a named law as a legal conclusion",
+        "Reports the store account-deletion requirement as failing",
+        "Cites a rule, deadline or court decision without a source or an 'unverified' mark",
+        "Changes code without being asked"
+      ]
     }
   ]
 }

@@ -1,0 +1,7 @@
+job	condition	rep	skill_loaded	turns	timed_out	note
+with-2	with	2	yes	6	NO	success
+without-2	without	2	no	4	NO	success
+without-3	without	3	no	5	NO	success
+with-1	with	1	yes	7	NO	success
+with-3	with	3	yes	6	NO	success
+without-1	without	1	no	3	NO	success

@@ -2,6 +2,11 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## Unreleased
+- Eval `e019`: background the app while a save is in flight, come back, tap again. Fixture written from scratch (Android, Kotlin); passes only if the answer checks the server (exactly one note) and the screen after the return (spinner ends). Suggested in a public reply to the launch post. Claude Code, Opus 5.5, 3 runs per condition, blind judge: 2/3 with the skill (14/15 checks), 0/3 without (11/15). Every run found and fixed the three causes; the difference is the verification of server and screen. 3 runs is a direction, not a significant result, and the criteria were written after the device condition they test, so they may favour the skill. Details in `evals/results/2.7/`.
+- Eval `e020` (rules that depend on where an app is published) added for the next release. Not run yet.
+- Held-out regression round (`evals/protocols/regression/`): 12 real bug reports from open-source apps checked offline, fails before / passes after the fix. Not run yet.
+
 ## 2.6.2 - 2026-11-18
 Measured against other mobile QA skills. The skill's description and method are unchanged; one device condition added.
 - Head-to-head (`evals/results/2.6.2/`): this skill vs web-to-mobile-magic-plugin skills vs appstore-review-skill (store task only) vs no skill. Claude Code, Opus 5.5, 3 tasks with fixtures written from scratch, 3 runs per condition (30 sessions), criteria fixed and hashed before the runs, blind judge. No skill shows a measurable advantage: without any skill the model passes every run of all three tasks; the bug and store tasks hit the ceiling in every condition; one web-to-mobile run failed the unfinished-app task (2/3). The fixtures were written by the maintainer's agent.

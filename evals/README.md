@@ -8,6 +8,8 @@ A small test set built from the real cases in `cases/`. Run it on every release 
 - `fixtures/`: small, anonymised code and data that reproduce each case. They do not compile on their own; they are enough for a code-reading audit.
 - `e008` has no case behind it on purpose: the right answer is "not reproduced, still Suspected". It checks that the skill does not invent a cause.
 - `e015`-`e018` (2.6.0) have no real case behind them: they test the new store, security, autopsy and future-risk references with fixtures written from scratch. They were written in the same session as those references, so they may favour the skill; read their results with that in mind. `e016` and `e018` contain dates in late 2026 and 2027 and assume a run before 2026-12-31.
+- `e019` (2.7) has no real case behind it: it was suggested in a public reply to the launch post (background the app while a save is in flight, come back, tap again). It is written from scratch, after the device condition it tests was added to `references/device-testing.md` in 2.6.2. It passes only if the answer checks both the server and the screen after the return.
+- `e020` (planned for 2.8) has no real case behind it: it tests rules that depend on where an app is published (consent before tracking, deletion beyond the account, store age signals, trader status). Written from scratch by the maintainer's agent before the reference it will test, from rules re-read on official pages on 2026-11-23. It contains a 2027-02-01 deadline and assumes a run before that date.
 
 ## How to run (any agent)
 1. Open a fresh session in an agent with the skill installed (Claude Code, or any agent that reads `SKILL.md`).

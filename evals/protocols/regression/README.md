@@ -137,5 +137,5 @@ apart. Promised in a public reply to the person who suggested it.
 | Freeze commit | `513e115` (2026-11-19; last change to `skills/` in `e4d20ff`) |
 | Hashes of hidden files | not set |
 | Selection | done 2026-11-19 (queries and candidate lists kept private until the hashes are set) |
-| Case checks (offline build, fails before / passes after) | paused 2026-11-20: 8 checked, 7 kept, 1 dropped (dependencies no longer resolvable); 5 places left to fill |
+| Case checks (offline build, fails before / passes after) | done 2026-11-23: 13 checked, 12 kept, 1 dropped (dependencies no longer resolvable; replaced by the next reserve). 5 kept cases use the fix's own test; 7 need a behaviour test written before the hashes, because the fix's test only fails before the fix by not compiling |
 | Runs | not started |
